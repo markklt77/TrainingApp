@@ -51,8 +51,6 @@ export const signup = (user) => async (dispatch) => {
       method: "POST",
       body: JSON.stringify({
         username,
-        firstName,
-        lastName,
         email,
         password
       })

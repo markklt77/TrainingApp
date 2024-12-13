@@ -19,56 +19,64 @@ module.exports = {
         sets: 2,
         reps: 8,
         weight: 185,
-        workoutId: 3
+        workoutId: 3,
+        userId: 1
       },
       {
         exerciseTypeId: 2,
         sets: 2,
         reps: 12,
         weight: 400,
-        workoutId: 2
+        workoutId: 2,
+        userId: 2
       },
       {
         exerciseTypeId: 3,
         sets: 2,
         reps: 12,
         weight: 225,
-        workoutId: 3
+        workoutId: 3,
+        userId: 1
       },
       {
         exerciseTypeId: 4,
         sets: 2,
         reps: 5,
         weight: 405,
-        workoutId: 2
+        workoutId: 2,
+        userId: 1
       },
       {
         exerciseTypeId: 5,
         sets: 2,
         reps: 12,
         weight: 40,
-        workoutId: 1
+        workoutId: 1,
+        userId: 1
       },
       {
         exerciseTypeId: 6,
         sets: 3,
         reps: 12,
         weight: 62.5,
-        workoutId: 1
+        workoutId: 1,
+        userId: 3
       },
       {
         exerciseTypeId: 6,
         sets: 2,
         reps: 25,
         weight: 30,
-        workoutId: 1
+        workoutId: 1,
+        userId: 1
       },
       {
         exerciseTypeId: 1,
         sets: 3,
         reps: 10,
         weight: 235,
-        workoutId: 3
+        workoutId: 3,
+        userId: 2
       },
 
     ], { validate: true })

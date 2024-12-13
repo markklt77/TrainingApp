@@ -1,0 +1,4 @@
+.home-page-button-container {
+    display: flex;
+    flex-direction: column;
+}
