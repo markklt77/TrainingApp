@@ -97,11 +97,12 @@ router.get('/most-recent', requireAuth, async (req, res) => {
     const query = {
         where: { userId: req.user.id },
         order: [['id', 'DESC']],
+        limit: focus ? undefined : 1,
         include: [
             {
                 model: WorkoutType,
-                where: focus? { focus } : {},
-                required: false
+                where: focus? { focus } : undefined,
+                required: !!focus
             }
         ]
     }

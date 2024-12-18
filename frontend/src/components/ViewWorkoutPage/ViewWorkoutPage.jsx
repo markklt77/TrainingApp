@@ -11,7 +11,6 @@ function ViewWorkoutPage() {
     const mostRecentWorkout = useSelector((state) => state.workouts.mostRecentWorkout);
     const filteredWorkouts = useSelector((state) => state.workouts.filteredWorkouts)
 
-    // console.log(mostRecentWorkout)
 
     useEffect(() => {
         dispatch(workoutActions.findMostRecentWorkout());
@@ -83,7 +82,7 @@ function ViewWorkoutPage() {
                             {filteredWorkouts.map((workout) => (
                                 <li key={workout.id}>
                                     <p>
-                                        <strong>Focus:</strong> {workout.WorkoutType.focus}
+                                        <strong>Focus:</strong> {workout.WorkoutType?.focus}
                                     </p>
                                     <p>
                                         <strong>Date:</strong>{" "}
