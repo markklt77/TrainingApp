@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Weight, {
         foreignKey: 'userId'
       })
+      User.hasMany(models.ExerciseType, {
+        foreignKey: 'userId'
+      })
+      User.hasMany(models.WorkoutType, {
+        foreignKey: 'userId'
+      })
     }
   };
 

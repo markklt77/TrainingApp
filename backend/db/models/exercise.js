@@ -21,21 +21,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         onDelete: 'CASCADE'
       })
+      Exercise.hasMany(models.ExerciseSet, {
+        foreignKey: 'exerciseId',
+        onDelete: 'CASCADE'
+      })
     }
   }
   Exercise.init({
-    sets: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    reps: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    weight: {
-      type: DataTypes.FLOAT,
-      allowNull: false
-    },
     exerciseTypeId: {
       type: DataTypes.INTEGER,
       allowNull: false,

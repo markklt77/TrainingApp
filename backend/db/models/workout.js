@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       Workout.hasMany(models.Exercise, {
         foreignKey: 'workoutId'
       })
+      Workout.belongsTo(models.WorkoutType, {
+        foreignKey: 'workoutTypeId'
+      })
     }
   }
   Workout.init({
@@ -29,9 +32,15 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE'
     },
-    focus: {
-      type: DataTypes.STRING,
-      allowNull: false
+    workoutTypeId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references:  {
+        model: 'WorkoutTypes',
+        key: 'id'
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     }
   }, {
     sequelize,

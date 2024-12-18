@@ -12,22 +12,28 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await ExerciseType.bulkCreate([
       {
-        name: 'Lat Pulldowns'
+        name: 'Lat Pulldowns',
+        userId: 1
       },
       {
-        name: 'Leg Press'
+        name: 'Leg Press',
+        userId: 1
       },
       {
-        name: 'Barbell Benchpress'
+        name: 'Barbell Benchpress',
+        userId: 1
       },
       {
-        name: 'Barbell Squats'
+        name: 'Barbell Squats',
+        userId: 1
       },
       {
-        name: 'Dumbell Bicep Curls'
+        name: 'Dumbell Bicep Curls',
+        userId: 1
       },
       {
-        name: 'Vulcan Attachment Cable Tricep Extensions'
+        name: 'Vulcan Attachment Cable Tricep Extensions',
+        userId: 1
       }
     ], { validate: true })
   },

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 function HomePageButton({path, title, icon}) {
-    const navigate = useNavigate;
+    const navigate = useNavigate();
 
     const handleClick = () => {
         navigate(path)

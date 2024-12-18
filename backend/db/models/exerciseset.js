@@ -3,31 +3,37 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class ExerciseType extends Model {
+  class ExerciseSet extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      ExerciseType.hasMany(models.Exercise, {
-        foreignKey: 'exerciseTypeId',
-      })
-      ExerciseType.belongsTo(models.User, {
-        foreignKey: 'userId'
+      ExerciseSet.belongsTo(models.Exercise, {
+        foreignKey: 'exerciseId',
+        onDelete: 'CASCADE'
       })
     }
   }
-  ExerciseType.init({
-    name: {
-      type: DataTypes.STRING,
+  ExerciseSet.init({
+    sets: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    userId: {
+    reps: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    weight: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
+    exerciseId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Users',
+        model: 'Exercises',
         key: 'id'
       },
       onDelete: 'CASCADE',
@@ -35,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'ExerciseType',
+    modelName: 'ExerciseSet',
   });
-  return ExerciseType;
+  return ExerciseSet;
 };

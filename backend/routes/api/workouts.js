@@ -1,9 +1,10 @@
 const express = require('express');
 
 const { requireAuth } = require('../../utils/auth');
-const { Workout, Exercise, ExerciseType, User } = require('../../db/models')
+const { Workout, Exercise, ExerciseType, User, ExerciseSet, WorkoutType } = require('../../db/models')
 const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation');
+const user = require('../../db/models/user');
 const router = express.Router();
 
 const validateWorkoutCreation = [
@@ -47,23 +48,77 @@ router.get('/', requireAuth, async (req, res) => {
             include: [
                 {
                     model: Exercise,
-                    attributes: ['id', 'sets', 'reps', 'weight'],
                     include: [
                         {
                             model: ExerciseType,
                             attributes: ['name']
+                        },
+                        {
+                            model: ExerciseSet,
+                            attributes: ['sets', 'reps', 'weight']
                         }
                     ]
                 },
                 {
                     model: User,
                     attributes: ['id', 'username']
+                },
+                {
+                    model: WorkoutType,
+                    attributes: ['focus']
                 }
             ]
         });
 
         return res.json(workouts);
 });
+
+router.get('/workoutTypes', requireAuth, async(req, res) => {
+
+    const userId = req.user.id
+    const workoutTypes = await WorkoutType.findAll({
+        where: { userId: userId },
+        attributes: ['id', 'focus'],
+        order: [['focus', 'ASC']]
+    })
+
+    if (workoutTypes.length === 0) {
+        return res.status(404).json({ message: 'No workout types found.' });
+    }
+
+    return res.status(200).json(workoutTypes);
+
+})
+
+router.get('/most-recent', requireAuth, async (req, res) => {
+
+    const { focus } = req.query;
+
+    const query = {
+        where: { userId: req.user.id },
+        order: [['id', 'DESC']],
+        include: [
+            {
+                model: WorkoutType,
+                where: focus? { focus } : {},
+                required: false
+            }
+        ]
+    }
+
+    if (!focus) {
+        query.limit = 1;
+    }
+
+    const workouts = await Workout.findAll(query)
+
+    if (workouts && workouts.length) {
+        console.log(workouts)
+        return res.status(200).json(workouts);
+    } else {
+        return res.status(404).json({ message: "No workouts found" });
+    }
+})
 
 router.get('/:workoutId', requireAuth, async(req, res) => {
 
@@ -77,17 +132,24 @@ router.get('/:workoutId', requireAuth, async(req, res) => {
             include: [
                 {
                     model: Exercise,
-                    attributes: ['id', 'sets', 'reps', 'weight'],
                     include: [
                         {
                             model: ExerciseType,
                             attributes: ['name'],
                         },
+                        {
+                            model: ExerciseSet,
+                            attributes: ['sets', 'reps', 'weight']
+                        }
                     ],
                 },
                 {
                     model: User,
                     attributes: ['id', 'username'],
+                },
+                {
+                    model: WorkoutType,
+                    attributes: ['focus'],
                 },
             ],
         });
@@ -99,17 +161,37 @@ router.get('/:workoutId', requireAuth, async(req, res) => {
         res.status(200).json(workout)
 })
 
-router.post('/', validateWorkoutCreation, async(req, res) => {
-    const { focus } = req.body
-    const newWorkout = await Workout.create({
-        focus: focus,
-        userId: req.user.id
-    })
 
-    return res.status(201).json({
-        newWorkout
-    })
-})
+router.post('/', validateWorkoutCreation, async (req, res) => {
+    const { focus } = req.body;
+    const userId = req.user.id;
+
+      let workoutType = await WorkoutType.findOne({
+        where: { focus, userId },
+      });
+
+      if (!workoutType) {
+        workoutType = await WorkoutType.create({
+          focus,
+          userId,
+        });
+      }
+
+      if (!workoutType || !workoutType.id) {
+        return res.status(500).json({ error: 'Failed to create workout type.' });
+      }
+
+      const newWorkout = await Workout.create({
+        workoutTypeId: workoutType.id,
+        userId,
+      });
+
+      return res.status(201).json({
+        newWorkout,
+      });
+
+  });
+
 
 router.post('/:workoutId/exercises', validateExerciseCreation, async(req, res) => {
     const { sets, reps, weight, exerciseTypeId} = req.body;
@@ -142,7 +224,16 @@ router.put('/:workoutId', validateWorkoutCreation, async(req, res) => {
         return res.status(404).json({ error: 'Workout not found' });
     }
 
-    workout.focus = focus;
+    const workoutType = await WorkoutType.findOne({
+        where: { focus }
+    });
+
+
+    if (!workoutType) {
+        return res.status(404).json({ error: 'WorkoutType not found' });
+    }
+
+    workout.workoutTypeId = workoutType.id;
     await workout.save();
 
     return res.status(200).json({

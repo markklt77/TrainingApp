@@ -5,42 +5,33 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Exercises', {
+    await queryInterface.createTable('ExerciseSets', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      exerciseTypeId: {
+      sets: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'ExerciseTypes',
-          key: 'id'
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        allowNull: false
       },
-      workoutId: {
+      reps: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Workouts',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
+        allowNull: false
       },
-      userId: {
+      weight: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+      },
+      exerciseId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Users',
+          model: 'Exercises',
           key: 'id'
         },
         onDelete: 'CASCADE',
@@ -59,7 +50,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = 'Exercises';
-    return queryInterface.dropTable(options);
+    options.tableName = 'ExerciseSets'
+    await queryInterface.dropTable(options);
   }
 };
