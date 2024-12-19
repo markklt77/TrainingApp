@@ -9,9 +9,9 @@ const router = express.Router();
 
 const validateWorkoutCreation = [
     requireAuth,
-    check('focus')
+    check('workoutTypeId')
         .exists({ checkFalsy:true })
-        .withMessage('Please provide a focus for this workout'),
+        .withMessage('Please provide a workoutOutType for this workout'),
     handleValidationErrors
 ]
 
@@ -103,6 +103,19 @@ router.get('/most-recent', requireAuth, async (req, res) => {
                 model: WorkoutType,
                 where: focus? { focus } : undefined,
                 required: !!focus
+            },
+            {
+                model: Exercise,
+                include: [
+                    {
+                        model: ExerciseType,
+                        attributes: ['name']
+                    },
+                    {
+                        model: ExerciseSet,
+                        attributes: ['sets', 'reps', 'weight']
+                    }
+                ]
             }
         ]
     }
@@ -164,22 +177,22 @@ router.get('/:workoutId', requireAuth, async(req, res) => {
 
 
 router.post('/', validateWorkoutCreation, async (req, res) => {
-    const { focus } = req.body;
+    const { workoutTypeId } = req.body;
     const userId = req.user.id;
 
       let workoutType = await WorkoutType.findOne({
-        where: { focus, userId },
+        where: { id: workoutTypeId, userId },
       });
 
-      if (!workoutType) {
-        workoutType = await WorkoutType.create({
-          focus,
-          userId,
-        });
-      }
+    //   if (!workoutType) {
+    //     workoutType = await WorkoutType.create({
+    //       focus,
+    //       userId,
+    //     });
+    //   }
 
       if (!workoutType || !workoutType.id) {
-        return res.status(500).json({ error: 'Failed to create workout type.' });
+        return res.status(500).json({ error: 'Failed to find workout type.' });
       }
 
       const newWorkout = await Workout.create({
