@@ -4,8 +4,15 @@ const SET_WORKOUT = "/workout/setWorkout";
 const SET_FILTERED_WORKOUTS = "workout/setFilteredWorkouts";
 const SET_MOST_RECENT_WORKOUT = "/workout/setMostRecentWorkout"
 const SET_WORKOUT_TYPES = "/workout/setWorkoutTypes"
+const ADD_EXERCISE = "workout/addExercise";
 
-const setSingleWorkout = (workout) => ({
+const addExercise = (exercise) => ({
+    type: ADD_EXERCISE,
+    payload: exercise,
+});
+
+
+const setWorkout = (workout) => ({
     type: SET_WORKOUT,
     payload: workout
 })
@@ -25,6 +32,21 @@ const setWorkoutTypes = (workoutTypes) => ({
     payload: workoutTypes
 })
 
+export const addExerciseToWorkout = (workoutId, exerciseTypeId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/workouts/${workoutId}/exercises`, {
+        method: 'POST',
+        body: JSON.stringify({ exerciseTypeId }),
+    });
+
+    if (response.ok) {
+        const newExercise = await response.json();
+        dispatch(addExercise(newExercise));
+        return newExercise;
+    } else {
+        throw new Error("Failed to add exercise");
+    }
+};
+
 export const createWorkout = (workoutData) => async (dispatch) => {
     const response = await csrfFetch('/api/workouts', {
         method: "POST",
@@ -38,6 +60,19 @@ export const createWorkout = (workoutData) => async (dispatch) => {
     } else {
         throw new Error('Failed to create workout')
     }
+}
+
+export const findWorkoutById = (workoutId) => async (dispatch) => {
+
+    const response = await csrfFetch(`/api/workouts/${workoutId}`);
+
+    if (response.ok) {
+        const workoutData = await response.json();
+        dispatch(setWorkout(workoutData));
+    } else {
+        throw new Error('Failed to fetch workout');
+    }
+
 }
 
 export const findMostRecentWorkout = () => async (dispatch) => {
@@ -63,7 +98,6 @@ export const findWorkoutsByFocus = (focus) => async(dispatch) => {
         return workouts;
     } else {
         dispatch(setFilteredWorkouts([]))
-
     }
 }
 
@@ -79,6 +113,22 @@ export const fetchWorkoutTypes = () => async (dispatch) => {
     }
 
 }
+
+export const createWorkoutType = (workoutTypeData) => async (dispatch) => {
+    const response = await csrfFetch('/api/workouts/workoutTypes', {
+        method: 'POST',
+        body: JSON.stringify(workoutTypeData),
+    });
+
+    if (response.ok) {
+        const newWorkoutType = await response.json();
+        dispatch(fetchWorkoutTypes());
+        return newWorkoutType;
+    } else {
+        throw new Error('Failed to create workout type');
+    }
+};
+
 
 const initialState = {
     workout: null,
@@ -109,6 +159,14 @@ const workoutReducer = (state = initialState, action) => {
                 ...state,
                 workoutTypes: action.payload
             }
+        case ADD_EXERCISE:
+            return {
+                ...state,
+                workout: {
+                    ...state.workout,
+                    Exercises: [...state.workout.Exercises, action.payload],
+                },
+            };
         default:
             return state;
     }

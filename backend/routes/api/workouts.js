@@ -15,7 +15,25 @@ const validateWorkoutCreation = [
     handleValidationErrors
 ]
 
+const validateWorkoutTypeCreation = [
+    requireAuth,
+    check('focus')
+        .exists({checkFalsy:true})
+        .withMessage('Please provide a focus for this workoutType'),
+    handleValidationErrors
+]
+
 const validateExerciseCreation = [
+    requireAuth,
+    check('exerciseTypeId')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide the id for the chosen exerciseType')
+        .isInt({ min: 1 })
+        .withMessage('Id must be a postive integer'),
+    handleValidationErrors
+];
+
+const validateExerciseSetCreation = [
     requireAuth,
     check('sets')
         .exists({ checkFalsy: true })
@@ -32,13 +50,8 @@ const validateExerciseCreation = [
         .withMessage('Please provide the amount of weight used')
         .isFloat({ min: 0 })
         .withMessage('Weight must be a non-negative number'),
-    check('exerciseTypeId')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide the id for the chosen exerciseType')
-        .isInt({ min: 1 })
-        .withMessage('Id must be a postive integer'),
     handleValidationErrors
-];
+]
 
 router.get('/', requireAuth, async (req, res) => {
 
@@ -134,6 +147,7 @@ router.get('/most-recent', requireAuth, async (req, res) => {
     }
 })
 
+//find workout by Id
 router.get('/:workoutId', requireAuth, async(req, res) => {
 
         const workoutId = req.params.workoutId;
@@ -153,7 +167,7 @@ router.get('/:workoutId', requireAuth, async(req, res) => {
                         },
                         {
                             model: ExerciseSet,
-                            attributes: ['sets', 'reps', 'weight']
+                            attributes: ['id', 'sets', 'reps', 'weight']
                         }
                     ],
                 },
@@ -206,22 +220,63 @@ router.post('/', validateWorkoutCreation, async (req, res) => {
 
   });
 
+//create a new workout type
+router.post('/workoutTypes', validateWorkoutTypeCreation, async (req, res) => {
+    const userId = req.user.id;
+    const { focus } = req.body;
 
+    const newWorkoutType = await WorkoutType.create({
+        focus: focus.trim(),
+        userId
+    })
+
+    return res.status(201).json(newWorkoutType)
+
+})
+
+//add exercise to workout
 router.post('/:workoutId/exercises', validateExerciseCreation, async(req, res) => {
-    const { sets, reps, weight, exerciseTypeId} = req.body;
+    const { exerciseTypeId } = req.body;
+    const { workoutId } = req.params;
+
+    const workout = await Workout.findByPk(workoutId);
+    if (!workout || workout.userId !== req.user.id) {
+        return res.status(404).json({ message: 'Workout not found' });
+    }
+
     const newExercise = await Exercise.create({
-        sets,
-        reps,
-        weight,
         exerciseTypeId,
         userId: req.user.id,
-        workoutId: req.params.workoutId
+        workoutId
     })
 
     return res.status(201).json({
         newExercise
     })
 })
+
+// add a set to an exercise
+router.post('/exercises/:exerciseId', validateExerciseSetCreation, async(req, res) => {
+    const { sets, reps, weight } = req.body;
+    const { exerciseId } = req.params;
+
+    const exercise = await Exercise.findByPk(exerciseId);
+    if (!exercise || exercise.userId !== req.user.id) {
+        return res.status(404).json({ message: 'Exercise not found' });
+    }
+
+    const newSetEntry = await ExerciseSet.create({
+        exerciseId,
+        sets,
+        reps,
+        weight
+    })
+
+    return res.status(201).json({
+        newSetEntry
+    })
+})
+
 
 router.put('/:workoutId', validateWorkoutCreation, async(req, res) => {
     const { workoutId } = req.params;
@@ -273,6 +328,21 @@ router.delete('/:workoutId', requireAuth, async (req, res) => {
 
 
     res.status(200).json( {message: 'Successfully deleted'} )
+
+})
+
+router.delete('/exercises/:exerciseId/:exerciseSetId', requireAuth, async (req, res) => {
+
+    const exerciseSet = await ExerciseSet.findByPk(req.params.exerciseSetId)
+
+    const exercise = await Exercise.findByPk(exerciseSet.exerciseId);
+    if (!exercise || exercise.userId !== req.user.id) {
+        return res.status(403).json({ message: 'Unauthorized to delete this exercise set' });
+    }
+
+    await exerciseSet.destroy();
+
+    return res.status(200).json({ message: 'Exercise set deleted successfully'})
 
 })
 
