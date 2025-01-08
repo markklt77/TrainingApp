@@ -58,7 +58,7 @@ function ExerciseForm({ workoutId }) {
                     type="exercise"
                     onSuccess={() => {
                         setShowNewTypeForm(false);
-                        dispatch(exerciseActions.fetchExerciseTypes()); // Refresh exercise types
+                        // dispatch(exerciseActions.fetchExerciseTypes()); // Refresh exercise types
                     }}
                     onCancel={() => setShowNewTypeForm(false)}
                 />

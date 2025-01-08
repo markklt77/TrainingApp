@@ -1,4 +1,4 @@
-import { set } from "react-hook-form";
+
 import { csrfFetch } from "./csrf";
 import * as workoutActions from './workout'
 
@@ -14,8 +14,9 @@ export const clearExerciseTypes = () => ({
     type: CLEAR_EXERCISE_TYPES,
 });
 
+// add an exercise to a workout
 export const addExerciseToWorkout = (workoutId, exerciseTypeId) => async (dispatch) => {
-    const response = csrfFetch(`/api/workouts/${workoutId}/exercises`, {
+    const response = await csrfFetch(`/api/workouts/${workoutId}/exercises`, {
         method: 'POST',
         body: JSON.stringify({exerciseTypeId})
     });
@@ -25,6 +26,23 @@ export const addExerciseToWorkout = (workoutId, exerciseTypeId) => async (dispat
         return newExercise;
     } else {
         throw new Error("Failed to add exercise")
+    }
+}
+
+//remove an exercise from a workout
+export const deleteExerciseFromWorkout = (workoutId, exerciseId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/workouts/${workoutId}/exercises/${exerciseId}`, {
+        method: 'DELETE',
+    })
+
+
+    if (response.ok) {
+        const message = await response.json();
+        dispatch(workoutActions.findWorkoutById(workoutId))
+        return message;
+    } else {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to delete the exercise');
     }
 }
 

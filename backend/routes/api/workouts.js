@@ -11,7 +11,7 @@ const validateWorkoutCreation = [
     requireAuth,
     check('workoutTypeId')
         .exists({ checkFalsy:true })
-        .withMessage('Please provide a workoutOutType for this workout'),
+        .withMessage('Please provide a workoutType for this workout'),
     handleValidationErrors
 ]
 
@@ -255,6 +255,32 @@ router.post('/:workoutId/exercises', validateExerciseCreation, async(req, res) =
     })
 })
 
+//delete exercise from workout
+router.delete('/:workoutId/exercises/:exerciseId', requireAuth, async(req, res) => {
+    const { workoutId, exerciseId } = req.params;
+
+    const workout = await Workout.findByPk(workoutId);
+    if (!workout || workout.userId !== req.user.id) {
+        return res.status(404).json({ message: 'Workout not found' });
+    }
+
+    const exercise = await Exercise.findOne({
+        where: {
+            id: exerciseId,
+            workoutId: workoutId,
+        },
+    });
+
+    if (!exercise) {
+        return res.status(404).json({ message: 'Exercise not found' });
+    }
+
+    await exercise.destroy();
+
+    return res.status(200).json({ message: 'Exercise successfully deleted' });
+
+})
+
 // add a set to an exercise
 router.post('/exercises/:exerciseId', validateExerciseSetCreation, async(req, res) => {
     const { sets, reps, weight } = req.body;
@@ -280,7 +306,7 @@ router.post('/exercises/:exerciseId', validateExerciseSetCreation, async(req, re
 
 router.put('/:workoutId', validateWorkoutCreation, async(req, res) => {
     const { workoutId } = req.params;
-    const { focus } = req.body;
+    const { workoutTypeId } = req.body;
 
     const workout = await Workout.findOne({
         where: {
@@ -294,7 +320,7 @@ router.put('/:workoutId', validateWorkoutCreation, async(req, res) => {
     }
 
     const workoutType = await WorkoutType.findOne({
-        where: { focus }
+        where: { id: workoutTypeId }
     });
 
 
