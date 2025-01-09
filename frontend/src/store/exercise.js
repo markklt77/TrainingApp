@@ -4,15 +4,21 @@ import * as workoutActions from './workout'
 
 const SET_EXERCISE_TYPES = 'exerciseTypes/setExerciseTypes';
 const CLEAR_EXERCISE_TYPES = 'exerciseTypes/clearExerciseTypes';
+const SET_EXERCISES = '/exercises'
 
-export const setExerciseTypes = (exerciseTypes) => ({
+const setExerciseTypes = (exerciseTypes) => ({
     type: SET_EXERCISE_TYPES,
     payload: exerciseTypes,
 });
 
-export const clearExerciseTypes = () => ({
+const clearExerciseTypes = () => ({
     type: CLEAR_EXERCISE_TYPES,
 });
+
+const setExercises = (exercises) => ({
+    type: SET_EXERCISES,
+    payload: exercises
+})
 
 // add an exercise to a workout
 export const addExerciseToWorkout = (workoutId, exerciseTypeId) => async (dispatch) => {
@@ -27,6 +33,19 @@ export const addExerciseToWorkout = (workoutId, exerciseTypeId) => async (dispat
     } else {
         throw new Error("Failed to add exercise")
     }
+}
+
+//get all exercises based on type
+export const getExercisesFromType = (exerciseTypeId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/exercises/${exerciseTypeId}`);
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch exercises")
+    }
+
+    const exercises = await response.json();
+    dispatch(setExercises(exercises))
+    return exercises;
 }
 
 //remove an exercise from a workout
@@ -77,6 +96,7 @@ export const fetchExerciseTypes = () => async (dispatch) => {
 
 const initialState = {
     exerciseTypes: [],
+    exercises: []
 };
 
 export const addSetToExercise = (workoutId, exerciseId, setData) => async (dispatch) => {
@@ -110,6 +130,11 @@ export const deleteSetFromExercise = (workoutId, exerciseId, exerciseSetId) => a
 
 const exerciseReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_EXERCISES:
+            return {
+                ...state,
+                exercises: action.payload
+            }
         case SET_EXERCISE_TYPES:
             return {
                 ...state,

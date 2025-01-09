@@ -59,7 +59,7 @@ function RenderWorkoutDetails( { workoutId } ) {
             <h3>Workout Details</h3>
 
             <div>
-                <OpenModalButton modalComponent={<EditWorkoutDetails workoutId={workoutId}/>} buttonText={"Edit Workout"}/>
+                <OpenModalButton modalComponent={<EditWorkoutDetails workoutId={workoutId} isModal={true}/>} buttonText={"Edit Workout"}/>
             </div>
 
             <p>

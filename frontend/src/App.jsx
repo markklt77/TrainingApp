@@ -7,6 +7,8 @@ import HomePage from './components/HomePage';
 import * as sessionActions from './store/session';
 import CreateWorkoutForm from './components/CreateWorkoutForm';
 import ViewWorkoutPage from './components/ViewWorkoutPage';
+import CurrentWorkoutPage from './components/CurrentWorkoutPage';
+
 
 function Layout() {
   const dispatch = useDispatch();
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: '/workouts/view',
         element: <ViewWorkoutPage/>
+      },
+      {
+        path: '/workouts/current',
+        element: <CurrentWorkoutPage/>
       }
 
     ]

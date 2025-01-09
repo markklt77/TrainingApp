@@ -2,7 +2,7 @@ const express = require('express');
 const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation');
-const { ExerciseType } = require('../../db/models');
+const { ExerciseType, Exercise, ExerciseSet } = require('../../db/models');
 const user = require('../../db/models/user');
 
 const router = express.Router();
@@ -32,6 +32,25 @@ router.get('/exerciseTypes', requireAuth, async (req, res) => {
     return res.status(200).json(exerciseTypes);
 
 });
+
+router.get('/:exerciseTypeId', requireAuth, async(req, res) => {
+    const { exerciseTypeId } = req.params;
+
+    const exercises = await Exercise.findAll({
+        where: { exerciseTypeId },
+        include: [
+            { model: ExerciseSet },
+            { model: ExerciseType }
+        ],
+        order: [['createdAt', 'DESC']]
+    })
+
+    if (!exercises || exercises.length === 0) {
+        return res.status(404).json({ message: 'No exercises found for this type.' });
+    }
+
+    res.status(200).json(exercises);
+})
 
 router.post('/exerciseTypes', validateExerciseTypeCreation, async (req, res) => {
     const { name } = req.body;
