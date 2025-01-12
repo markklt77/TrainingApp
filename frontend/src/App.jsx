@@ -8,6 +8,8 @@ import * as sessionActions from './store/session';
 import CreateWorkoutForm from './components/CreateWorkoutForm';
 import ViewWorkoutPage from './components/ViewWorkoutPage';
 import CurrentWorkoutPage from './components/CurrentWorkoutPage';
+import LoginFormModal from './components/LoginFormModal';
+import LandingPage from './components/LandingPage';
 
 
 function Layout() {
@@ -15,13 +17,14 @@ function Layout() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => {
-      setIsLoaded(true)
-    });
+    dispatch(sessionActions.restoreUser())
+      .then(() => {
+        setIsLoaded(true);
+      });
   }, [dispatch]);
 
   return (
-    <div>
+    <div className='nav-bar-outlet'>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Outlet />}
     </div>
@@ -30,10 +33,18 @@ function Layout() {
 
 const router = createBrowserRouter([
   {
+    path: '/',
+    element: <LandingPage/>
+  },
+  {
     element: <Layout />,
     children: [
+      // {
+      //   path: '/',
+      //   element: <LandingPage/>
+      // },
       {
-        path: '/',
+        path: '/home',
         element: <HomePage/>
       },
       {
@@ -45,7 +56,7 @@ const router = createBrowserRouter([
         element: <ViewWorkoutPage/>
       },
       {
-        path: '/workouts/current',
+        path: '/home/workouts/current',
         element: <CurrentWorkoutPage/>
       }
 

@@ -1,4 +1,5 @@
 
+import { bindActionCreators } from "redux";
 import { csrfFetch } from "./csrf";
 import * as workoutActions from './workout'
 
@@ -15,9 +16,9 @@ const clearExerciseTypes = () => ({
     type: CLEAR_EXERCISE_TYPES,
 });
 
-const setExercises = (exercises) => ({
+const setExercisesForType = (exerciseTypeId, exercises) => ({
     type: SET_EXERCISES,
-    payload: exercises
+    payload: { exerciseTypeId, exercises },
 })
 
 // add an exercise to a workout
@@ -44,7 +45,7 @@ export const getExercisesFromType = (exerciseTypeId) => async (dispatch) => {
     }
 
     const exercises = await response.json();
-    dispatch(setExercises(exercises))
+    dispatch(setExercisesForType(exerciseTypeId, exercises))
     return exercises;
 }
 
@@ -95,8 +96,8 @@ export const fetchExerciseTypes = () => async (dispatch) => {
 }
 
 const initialState = {
-    exerciseTypes: [],
-    exercises: []
+    exerciseTypes: {},
+    exercises: {}
 };
 
 export const addSetToExercise = (workoutId, exerciseId, setData) => async (dispatch) => {
@@ -133,12 +134,15 @@ const exerciseReducer = (state = initialState, action) => {
         case SET_EXERCISES:
             return {
                 ...state,
-                exercises: action.payload
-            }
+                exercises: {
+                    ...state.exercises,
+                    [action.payload.exerciseTypeId]: action.payload.exercises,
+                },
+            };
         case SET_EXERCISE_TYPES:
             return {
                 ...state,
-                exerciseTypes: action.payload,
+                exerciseTypes: action.payload
             };
         case CLEAR_EXERCISE_TYPES:
             return {

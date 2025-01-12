@@ -1,3 +1,29 @@
 .hidden {
     display: none;
 }
+
+/* .nav-bar-outlet {
+    background-color: white;
+    height: 100vh;
+} */
+
+.navigation-div {
+    display: flex;
+    justify-content: space-between;
+    /* margin-top: 2vh; */
+    width: 100vw;
+    border: 1px solid aqua;
+}
+
+.profile-button-person {
+    margin-right: 2vh;
+}
+
+.home-logo {
+    margin-left: 2vh;
+}
+
+.navigation-logo-image {
+    /* border: 1px solid red; */
+    max-width: 4vh;
+}
