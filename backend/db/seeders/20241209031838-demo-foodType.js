@@ -37,7 +37,7 @@ module.exports = {
     options.tableName = 'FoodTypes';
     const Op = Sequelize.Op;
     queryInterface.bulkDelete(options, {
-      type: { [Op.in]: ['egg', 'whey protein', 'ground turkey', 'pasta', 'rice', 'beef']}
+      name: { [Op.in]: ['egg', 'whey protein', 'ground turkey', 'pasta', 'rice', 'beef']}
     }, {})
   }
 };
