@@ -43,7 +43,7 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'ExerciseSets';
+    options.tableName = 'WorkoutTypes';
     const Op = Sequelize.Op;
     queryInterface.bulkDelete(options, {
       userId: { [Op.in]: [1, 2]}
