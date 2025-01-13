@@ -59,7 +59,7 @@ function SignupFormPage() {
             <label className='landing-page-label'>
                 Email
             </label>
-            <span className='envelope'><i class="fa fa-envelope"></i></span>
+            <span className='envelope'><i className="fa fa-envelope"></i></span>
         </div>
         {errors.email && <p className='landing-page-error'>{errors.email}</p>}
         <div className='input-container'>
@@ -73,7 +73,7 @@ function SignupFormPage() {
             <label className='landing-page-label'>
                 Username
             </label>
-            <span className='person'><i class="fa fa-user"></i></span>
+            <span className='person'><i className="fa fa-user"></i></span>
 
         </div>
         {errors.username && <p className='landing-page-error'>{errors.username}</p>}
@@ -88,7 +88,7 @@ function SignupFormPage() {
             <label className='landing-page-label'>
                 Password
             </label>
-            <span className='key'><i class="fa fa-key"></i></span>
+            <span className='key'><i className="fa fa-key"></i></span>
         </div>
         {errors.password && <p className='landing-page-error'>{errors.password}</p>}
         <div className='input-container'>
@@ -102,7 +102,7 @@ function SignupFormPage() {
             <label className='landing-page-label'>
                 Confirm Password
             </label>
-            <span className='key'><i class="fa fa-key"></i></span>
+            <span className='key'><i className="fa fa-key"></i></span>
         </div>
         {errors.confirmPassword && (
             <p className='landing-page-error'>{errors.confirmPassword}</p>

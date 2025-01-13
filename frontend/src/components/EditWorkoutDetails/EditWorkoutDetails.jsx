@@ -18,7 +18,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
   const [previousStats, setPreviousStats] = useState({});
   const dispatch = useDispatch();
   const workout = useSelector((state) => state.workouts.workout);
-  const previousExercises = useSelector((state) => state.exercises.exercises)
+
   const filteredWorkouts = useSelector((state) => state.workouts.filteredWorkouts)
   const { closeModal } = useModal();
 

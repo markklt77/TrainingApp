@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { FaUserCircle } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -46,7 +45,7 @@ function ProfileButton({ user }) {
   return (
     <>
       <button className='user-button'onClick={toggleMenu}>
-        <span className='profile-person'><i class="fas fa-user fa-2x"></i></span>
+        <span className='profile-person'><i className="fas fa-user fa-2x"></i></span>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (

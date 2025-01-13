@@ -129,7 +129,7 @@ function ViewWorkoutPage() {
             </form>
 
             {/* Display most recent workout when no focus and search is not locked */}
-            {!focus && !searchLocked && viewMode === "mostRecent" && (
+            {!focus && !searchLocked && viewMode === 'mostRecent' && (
                 <div>
                     {!mostRecentWorkout || mostRecentWorkout.length === 0 ? (
                         <div>Loading...</div>
@@ -142,7 +142,7 @@ function ViewWorkoutPage() {
                 </div>
             )}
 
-            {!focus && !searchLocked && viewMode === "allWorkouts" && (
+            {!focus && !searchLocked && viewMode === 'allWorkouts' && (
                 <div>
                     {!workouts || workouts.length === 0 ? (
                         <div>Loading...</div>
@@ -165,11 +165,11 @@ function ViewWorkoutPage() {
             {/* Display search results or live search results */}
             {focus && (
                 <div>
-                    <h2>{searchLocked ? "Search Results" : "Live Search Results"}</h2>
+                    <h2>{searchLocked ? 'Search Results' : 'Live Search Results'}</h2>
                     {searchError ? (
-                        <p>No workouts found for "{focus}".</p>
+                        <p>No workouts found for &quot;{focus}&quot;.</p>
                     ) : filteredWorkouts.length === 0 ? (
-                        <p>No workouts found for "{focus}".</p>
+                        <p>No workouts found for &quot;{focus}&quot;.</p>
                     ) : (
                         <div>
                             {filteredWorkouts.map((workout) => (

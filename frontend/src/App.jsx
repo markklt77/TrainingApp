@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
-import Calender from './components/Calender';
+
 import HomePage from './components/HomePage';
 import * as sessionActions from './store/session';
 import CreateWorkoutForm from './components/CreateWorkoutForm';
 import ViewWorkoutPage from './components/ViewWorkoutPage';
 import CurrentWorkoutPage from './components/CurrentWorkoutPage';
-import LoginFormModal from './components/LoginFormModal';
+
 import LandingPage from './components/LandingPage';
 import WeightLog from './components/WeightLog/WeightLog';
 import CalenderBar from './components/CalenderBar';

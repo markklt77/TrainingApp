@@ -1,5 +1,5 @@
 
-import { bindActionCreators } from "redux";
+
 import { csrfFetch } from "./csrf";
 import * as workoutActions from './workout'
 
@@ -12,9 +12,6 @@ const setExerciseTypes = (exerciseTypes) => ({
     payload: exerciseTypes,
 });
 
-const clearExerciseTypes = () => ({
-    type: CLEAR_EXERCISE_TYPES,
-});
 
 const setExercisesForType = (exerciseTypeId, exercises) => ({
     type: SET_EXERCISES,
@@ -22,7 +19,7 @@ const setExercisesForType = (exerciseTypeId, exercises) => ({
 })
 
 // add an exercise to a workout
-export const addExerciseToWorkout = (workoutId, exerciseTypeId) => async (dispatch) => {
+export const addExerciseToWorkout = (workoutId, exerciseTypeId) => async () => {
     const response = await csrfFetch(`/api/workouts/${workoutId}/exercises`, {
         method: 'POST',
         body: JSON.stringify({exerciseTypeId})

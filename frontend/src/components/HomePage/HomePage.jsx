@@ -1,6 +1,6 @@
 import './HomePage.css';
 import HomePageButton from '../HomePageButton';
-import { FaDumbbell } from 'react-icons/fa';
+
 
 
 
