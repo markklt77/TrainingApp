@@ -1,0 +1,72 @@
+.day-display {
+    display: flex;
+    justify-content: center;
+
+}
+
+.today {
+    color: white;
+    background-color: #FF6F61;
+    border-radius: 10px;
+}
+
+.day-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5em;
+}
+
+.week-dates {
+    font-size: 1.25em;
+    display: flex;
+    justify-content: space-evenly;
+    min-width: 100%;
+    margin-bottom: 1em;
+}
+
+.month-display {
+    color: black;
+    font-size: 1.5em;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    margin: 1em 0em;
+}
+
+.calendar-bar {
+    position: relative;;
+    background-color: white;
+    min-width: 80%;
+    border-radius: 20px;
+    /* border: 1px solid red; */
+}
+
+.calender-bar-holder {
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid orange; */
+}
+
+
+.custom-shape-divider-top-1736736050 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1736736050 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 30px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-top-1736736050 .shape-fill {
+    fill: #4A90E2;
+}

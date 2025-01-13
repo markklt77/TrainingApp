@@ -1,0 +1,30 @@
+.home-page-button-container {
+    display: grid;
+    gap: 3em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.home-page {
+    margin-top: 2em;
+    padding-top: 2em;
+    height: 65vh;
+    width: 50%;
+    border-radius: 50px;
+    /* background-color: white; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.home-page-container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    /* border: 1px solid blue; */
+}
+
+.home-page h2 {
+    font-size: 1.5em;
+    color: white;
+}

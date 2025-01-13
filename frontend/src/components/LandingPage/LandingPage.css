@@ -1,0 +1,213 @@
+/* Add this to your CSS file */
+.name-header{
+    color: black;
+    margin-right: 3vh;
+    font-size: 35px;
+
+}
+
+.envelope,
+.key,
+.person {
+    position: absolute;
+    top: 1.6em;
+    right: 1em;
+    color: gray;
+}
+
+
+.no-account {
+    display: flex;
+    justify-content: center;
+
+}
+
+.switch-to-sign-up {
+    all: unset;
+    border: none;
+    background-color: none;
+    cursor: pointer;
+    color: #0370ec;
+}
+
+.switch-to-sign-up,
+.form-text {
+    z-index: 1;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+.switch-to-sign-up:hover {
+    color: #2c6cb6
+}
+
+.form-text {
+    color: black;
+    margin-right: 1vh;
+}
+
+.log-in-button {
+    background-color: #4A90E2;
+    color: white;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    padding: 1vh 3vh;
+}
+
+.log-in-button:hover {
+    cursor: pointer;
+    background-color: #2c6cb6
+}
+
+.left-right-landing-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr; */
+    width: 85vw;
+    height: 85vh;
+    background-color: white;
+    border-radius: 20px;
+    background-size: cover;
+    margin-top: 5em;
+    position: relative;
+}
+
+.landing-form {
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 5vh;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 1vh;
+
+}
+
+.landing-page-label{
+position: absolute;
+top: 2.2vh;
+left: 1.5vh;
+font-size: 20px;
+color: lightslategray;
+transition: 0.3s;
+pointer-events: none;
+}
+
+.landing-page-input {
+width: 15vw;
+padding: 2vh;
+border-radius: 15px;
+margin: 1vh 0vh;
+box-sizing: border-box;
+outline: none;
+background-color: rgb(196, 190, 190);
+border: none;
+}
+
+.landing-page-input:focus + .landing-page-label,
+.landing-page-input:not([value=""]) + .landing-page-label {
+    top: -15px;
+    background-color: none;
+    border-radius: 5px;
+    color: #4A90E2;
+    }
+
+.landing-page-input:focus {
+    border: 2px solid #4A90E2;
+    background-color: rgb(241, 228, 228);
+}
+
+.landing-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.landing-page-error {
+    /* position: absolute;
+    top: 2em; */
+    color: red;
+    font-style: italic;
+    font-size: 1.1em;
+}
+
+.landing-page-right {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.landing-image-caption {
+    color: white;font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+    margin-top: 4em;
+}
+
+.fitlog-word {
+    font-weight: 700;
+    color: #4A90E2
+}
+
+.landing-page-picture-div {
+    /* border: 1px solid red; */
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 7em;
+    min-width: 30vw;
+}
+
+.landing-page-image-caption {
+    /* border: 1px solid orange; */
+    position: absolute;
+    top: 18%;
+    font-size: 2.75vh;
+    font-weight: 700;
+    color: rgb(104, 102, 102);
+    /* border-bottom: 2px solid #4A90E2; */
+    padding: 1vh
+}
+
+.landing-page-image-caption span {
+    font-size: 3vh;
+    font-weight: 700;
+    /* color: #32CD32; */
+    color: #4A90E2;
+}
+
+.custom-shape-divider-bottom-1736645714 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1736645714 svg {
+    position: relative;
+    display: block;
+    width: calc(150% + 1.3px);
+    height: 169px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1736645714 .shape-fill {
+    fill: #4A90E2;
+}
+/* .side-image {
+    max-width: 100%;
+} */

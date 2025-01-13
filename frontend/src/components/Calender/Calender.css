@@ -1,0 +1,48 @@
+.calender {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid red;
+    height: 70vmin
+}
+
+.days-of-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 2.5rem;
+    width: 50rem;
+    border: 2px solid orange
+
+}
+
+.week-day {
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 2.5rem;
+    border: 2px solid black;
+    width: 50rem;
+
+
+}
+
+.single-day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    border: 2px solid red
+}
+
+.single-day:hover {
+    cursor: pointer;
+    background-color: rgb(250, 184, 62);
+}
