@@ -1,6 +1,17 @@
 .home-page-button {
-    background-color: rgb(131, 248, 209);
+    /* color: white; */
+    color: #4A90E2;
+    font-size: 1em;
+    /* background-color: #4A90E2; */
+    background-color: white;
     width: 20vw;
-    height: 10vh;
-    border-radius: 20px;
+    height: 20vh;
+    border-radius: 50px;
+}
+
+
+.home-page-button:hover {
+    cursor: pointer;
+    /* background-color: #3a73b4; */
+    background-color: rgb(216, 215, 215);
 }

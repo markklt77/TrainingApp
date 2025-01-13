@@ -3,11 +3,13 @@ import { thunk } from 'redux-thunk';
 import sessionReducer from './session';
 import workoutReducer from './workout';
 import exerciseReducer from './exercise';
+import weightReducer from './weight';
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     workouts: workoutReducer,
-    exercises: exerciseReducer
+    exercises: exerciseReducer,
+    weights: weightReducer
 });
 
 let enhancer;

@@ -1,29 +1,62 @@
 .hidden {
-    display: none;
+    /* display: none; */
+    opacity: 0;
+
+
 }
 
-/* .nav-bar-outlet {
+.user-button {
+    all: unset;
+    position: relative;
+    /* color: rgb(53, 51, 51); */
+    color: rgb(255, 254, 254);
+
+}
+
+.user-button:hover {
+    cursor: pointer;
+    color: rgb(240, 240, 240);
+}
+
+.profile-dropdown {
+    font-size: 1.2em;
+    list-style: none;
+    position: absolute;
     background-color: white;
-    height: 100vh;
-} */
+    border: 1px solid rgb(46, 45, 45);
+    border-radius: 5px;
+    padding: 0.5em 2em;
+    top: 3em;
+    right: 2em;
+    transition: 0.25s;
+    z-index: 10;
+}
+
+.profile-li {
+    margin: 1em 0;
+}
+
+
+
 
 .navigation-div {
     display: flex;
     justify-content: space-between;
     /* margin-top: 2vh; */
     width: 100vw;
-    border: 1px solid aqua;
+    /* border: 1px solid aqua; */
 }
 
 .profile-button-person {
-    margin-right: 2vh;
+    display: flex;
+    justify-content: center;
+    margin-right: 2em;
+
 }
 
 .home-logo {
-    margin-left: 2vh;
-}
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 2em;
 
-.navigation-logo-image {
-    /* border: 1px solid red; */
-    max-width: 4vh;
 }

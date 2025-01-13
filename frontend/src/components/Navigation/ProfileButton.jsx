@@ -45,16 +45,16 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
+      <button className='user-button'onClick={toggleMenu}>
+        <span className='profile-person'><i class="fas fa-user fa-2x"></i></span>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={logout}>Log Out</button>
+            <li className='profile-li'>Hi, {user.username}</li>
+            <li className='profile-li'>{user.email}</li>
+            <li className='profile-li'>
+              <button className='log-in-button' onClick={logout}>Log Out</button>
             </li>
           </>
         ) : (

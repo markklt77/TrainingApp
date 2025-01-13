@@ -10,6 +10,8 @@ import ViewWorkoutPage from './components/ViewWorkoutPage';
 import CurrentWorkoutPage from './components/CurrentWorkoutPage';
 import LoginFormModal from './components/LoginFormModal';
 import LandingPage from './components/LandingPage';
+import WeightLog from './components/WeightLog/WeightLog';
+import CalenderBar from './components/CalenderBar';
 
 
 function Layout() {
@@ -26,6 +28,7 @@ function Layout() {
   return (
     <div className='nav-bar-outlet'>
       <Navigation isLoaded={isLoaded} />
+      <CalenderBar/>
       {isLoaded && <Outlet />}
     </div>
   );
@@ -58,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: '/home/workouts/current',
         element: <CurrentWorkoutPage/>
+      },
+      {
+        path: '/weightLog',
+        element: <WeightLog/>
       }
 
     ]
