@@ -223,6 +223,17 @@ const workoutReducer = (state = initialState, action) => {
                     [action.payload.id]: action.payload
                 }
             }
+        // case REMOVE_WORKOUT: {
+        //     const { [action.payload]: _, ...remainingWorkoutIds } = state.workoutIds;
+        //     return {
+        //         ...state,
+        //         workout: null,
+        //         workoutIds: remainingWorkoutIds,
+        //         filteredWorkouts: state.filteredWorkouts.filter(
+        //             (workout) => workout.id !== action.payload
+        //         ),
+        //     };
+        // }
         case SET_ALL_WORKOUTS:
             return {
                 ...state,

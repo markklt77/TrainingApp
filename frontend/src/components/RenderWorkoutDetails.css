@@ -1,0 +1,104 @@
+.delete-icon {
+    padding: 0.5em 1em;
+    margin-top: 0.5em;
+    font-size: 1em;
+    color: rgb(71, 71, 71);
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-icon:hover {
+    background-color: rgb(255, 0, 0)
+}
+
+.edit-pencil {
+    padding: 0.25em 0.5em;
+    font-size: 0.75em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-pencil:hover {
+    background-color: #0056b3;
+}
+
+.open-modal-button {
+    all: unset;
+}
+
+.open-modal-button-div {
+    display: inline-block;
+}
+
+.render-details-header-div {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.render-details-header {
+    font-size: 1.35em;
+    margin: 1em 0.5em 1em 0em;
+
+}
+
+.edit-workout-details {
+    position: absolute;
+    top: -3em;
+    left: 25em;
+    max-height: 40em;
+    overflow-y: scroll;
+    background-color: white;
+    padding: 2em 5em;
+    border: 2px solid black;
+    border-radius: 20px;
+    box-sizing: content-box;
+}
+
+.edit-workout-details::-webkit-scrollbar {
+    color: #007bff;
+}
+
+
+.delete-success-message {
+    position: fixed;
+    bottom: 5em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: red;
+    color: white;
+    padding: 0.75em 1.25em;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-size: 1.25em;
+    z-index: 1000;
+    animation: fadeInOut 3s ease-in-out;
+  }
+
+  .exercise-list-item {
+    border-bottom: 1px solid rgb(211, 211, 211);
+    max-width: 40%;
+  }
+
+  /* Optional fade-in-out animation */
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(10px);
+    }
+    10%, 90% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(10px);
+    }
+  }

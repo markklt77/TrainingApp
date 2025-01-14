@@ -1,0 +1,162 @@
+.weight-log {
+
+    margin: 1.5em auto;
+    padding: 2em;
+    width: 80%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.weight-log h2 {
+    font-size: 2em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.weight-log ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.weight-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    border-bottom: 1px solid #ddd;
+}
+
+.weight-item:last-child {
+    border-bottom: none;
+}
+
+.weight-date {
+    font-size: 1.15em;
+    color: #666;
+}
+
+.weight-value {
+    font-size: 1.2em;
+    color: #333;
+    cursor: pointer;
+}
+
+.edit-container {
+    display: flex;
+    align-items: center;
+}
+
+.edit-container input {
+    font-size: 1em;
+    padding: 0.5em;
+    margin-right: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.weight-log-button {
+    padding: 0.5em 1em;
+    margin: 0em 0.25em;
+    font-size: 1em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.weight-log-button:hover {
+    background-color: #0056b3;
+}
+
+.weight-trend {
+    font-size: 1.2em;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.weight-trend.up {
+    color: green;
+}
+
+.weight-trend.down {
+    color: red;
+}
+
+.weight-trend.neutral {
+    color: gray;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.log-weight-button {
+    display: inline-block;
+    padding: 0.25em 0.5em;
+    min-width: 1.6em;
+    font-size: 1.5em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.log-weight-button:hover {
+    background-color: #0056b3;
+}
+
+
+.back-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-button {
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-button img {
+    width: 1.25em;
+    height: 1.25em;
+}
+
+.delete-button:hover {
+    opacity: 0.7;
+    background-color: red;
+}
+
+.form-container {
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .form-container.show {
+    opacity: 1;
+  }
+
+  .form-container.hide {
+    max-height: 0;
+    opacity: 0;
+  }

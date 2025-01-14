@@ -51,7 +51,7 @@ function EditWorkoutForm( { workoutId, currentFocus }) {
                     onCancel={() => setShowNewTypeForm(false)}
                 />
             ) : (
-                <form className="create-workout-form" onSubmit={handleSubmit(onSubmit)}>
+                <form className="edit-workout-form" onSubmit={handleSubmit(onSubmit)}>
                     <select
                         className="create-workout-form-input"
                         {...register("workoutTypeId", { required: "Please select a workout focus" })}
@@ -70,7 +70,7 @@ function EditWorkoutForm( { workoutId, currentFocus }) {
                         <p className="error-text">{errors.workoutTypeId.message}</p>
                     )}
 
-                    <button disabled={isSubmitting} type="submit">
+                    <button className='editor-button'disabled={isSubmitting} type="submit">
                         {isSubmitting ? "Saving..." : "Save Edit"}
                     </button>
                 </form>

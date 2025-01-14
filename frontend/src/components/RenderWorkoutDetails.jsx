@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import * as workoutActions from "../store/workout"
 import OpenModalButton from "./OpenModalButton";
 import EditWorkoutDetails from "./EditWorkoutDetails";
-import { useNavigate } from "react-router-dom";
+import './RenderWorkoutDetails.css';
 
 function RenderWorkoutDetails( { workoutId } ) {
-    const navigate = useNavigate()
 
     const [loading, setLoading] = useState(true);
     const [fetchError, setFetchError] = useState(false);
+    const [successMessage, setSuccessMessage] = useState("");
+    const [showEditDetails, setShowEditDetails] = useState(false);
     const dispatch = useDispatch();
     const workout = useSelector((state) => state.workouts.workoutIds[workoutId])
 
@@ -32,12 +33,25 @@ function RenderWorkoutDetails( { workoutId } ) {
     const handleDelete = async () => {
         try {
             await dispatch(workoutActions.deleteWorkout(workoutId));
-            alert('Workout successfully deleted');
-            navigate('/')
+            await dispatch(workoutActions.findMostRecentWorkout())
+            await dispatch(workoutActions.fetchAllWorkouts())
+            setSuccessMessage("Workout successfully deleted!")
+
+            // await dispatch(workoutActions.findWorkoutsByFocus())
+            setTimeout(async () => {
+                setSuccessMessage("")
+            }, 3000)
+
         } catch (error) {
-            console.error('Failed to delete workout:', error);
-            alert('Failed to delete workout');
+            setSuccessMessage("Something went wrong")
+            setTimeout(() => {
+                setSuccessMessage("");
+              }, 3000);
         }
+    };
+
+    const toggleEditDetails = () => {
+        setShowEditDetails((prevState) => !prevState);
     };
 
 
@@ -56,11 +70,33 @@ function RenderWorkoutDetails( { workoutId } ) {
 
     return (
         <div className="workout-details">
-            <h3>Workout Details</h3>
 
-            <div>
-                <OpenModalButton modalComponent={<EditWorkoutDetails workoutId={workoutId} isModal={true}/>} buttonText={"Edit Workout"}/>
+            {successMessage && (
+                <div className="delete-success-message">{successMessage}</div>
+            )}
+
+            <div className="render-details-header-div">
+                <h3 className="render-details-header">Workout Details</h3>
+
+                    <div
+                        className="open-modal-button-div"
+                        onClick={toggleEditDetails}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <span className="edit-pencil">
+                            <i className="fas fa-pencil-alt"></i>
+                        </span>
+                    </div>
+
+
+                    {showEditDetails && (
+                        <div className="edit-workout-details">
+                            <EditWorkoutDetails workoutId={workoutId} isModal={true} />
+                            <button onClick={toggleEditDetails}>Close Editor</button>
+                        </div>
+                    )}
             </div>
+
 
             <p>
                 <strong>Focus:</strong> {workout.WorkoutType?.focus}
@@ -76,7 +112,7 @@ function RenderWorkoutDetails( { workoutId } ) {
             {workout.Exercises && workout.Exercises.length > 0 ? (
                 <ul>
                     {workout.Exercises.map((exercise) => (
-                        <li key={exercise.id}>
+                        <li className='exercise-list-item' key={exercise.id}>
                             <p>
                                 <strong>Exercise:</strong>{" "}
                                 {exercise.ExerciseType ? (
@@ -85,7 +121,7 @@ function RenderWorkoutDetails( { workoutId } ) {
                                     <span>Loading Exercise Name...</span>
                                 )}
                             </p>
-                            <h5>Sets</h5>
+                            <h4>Sets</h4>
                             {exercise.ExerciseSets && exercise.ExerciseSets.length > 0 ? (
                                 <ul>
                                     {exercise.ExerciseSets.map((set, index) => (
@@ -109,7 +145,7 @@ function RenderWorkoutDetails( { workoutId } ) {
                 <p>No exercises found for this workout.</p>
             )}
             <div>
-                <button onClick={handleDelete}>Delete Workout</button>
+                <button className='delete-icon' onClick={handleDelete}><i className="fas fa-trash"></i></button>
             </div>
         </div>
     );

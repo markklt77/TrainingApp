@@ -1,0 +1,52 @@
+.set-trash-button {
+    all: unset;
+    margin-left: 1em;
+}
+
+.set-list {
+    all: unset;
+    display: flex;
+    justify-content: space-between;
+    margin: 1em 0em;
+}
+
+.set-trash-button {
+    color: rgb(71, 71, 71);
+    background-color: white;
+    /* border: 1px solid grey;
+    border-radius: 5px; */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+
+.set-trash-button:hover {
+    color: rgb(255, 0, 0)
+}
+.exercise-header-div {
+    display: flex;
+}
+.exercise-name-div {
+    margin-left: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    width: 15em;
+    /* border: 1px solid red; */
+}
+
+.edit-pencil-editor {
+    all: unset;
+    width: 1.5em;
+    height: 1.5em;
+    font-size: 0.9em;
+    color: rgb(49, 49, 49);
+    border-radius: 5px;
+    text-align: center;
+    /* background-color: #007bff;; */
+}
+
+.edit-pencil-editor:hover {
+    cursor: pointer;
+    color:  #007bff;
+}

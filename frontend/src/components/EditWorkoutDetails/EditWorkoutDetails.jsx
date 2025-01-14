@@ -8,6 +8,7 @@ import * as exerciseActions from "../../store/exercise";
 import CreateSetForm from "../CreateSetForm";
 import EditWorkoutForm from "../EditWorkoutForm";
 import { useModal } from "../../context/Modal";
+import './EditWorkoutDetails.css';
 
 function EditWorkoutDetails({ workoutId, isModal }) {
   const [showPreviousStats, setShowPreviousStats] = useState(false);
@@ -107,7 +108,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
   return (
     <div>
         <div className="workout-details">
-        <h3>Workout Details</h3>
+        <h3 className='render-details-header'>Workout Details</h3>
         <div>
             <strong>Focus:</strong>
             <EditWorkoutForm workoutId={workoutId} currentFocus={workout.workoutTypeId} />
@@ -124,13 +125,18 @@ function EditWorkoutDetails({ workoutId, isModal }) {
             <ul>
             {workout.Exercises.map((exercise) => (
                 <li key={exercise.id}>
-                <div>
+                <div className="exercise-header-div">
                     <strong>Exercise:</strong>{" "}
-                    {exercise.ExerciseType ? (
-                    exercise.ExerciseType.name
-                    ) : (
-                    <span>Loading Exercise Name...</span>
-                    )}
+                    <div className="exercise-name-div">
+                        {exercise.ExerciseType ? (
+                        exercise.ExerciseType.name
+                        ) : (
+                        <span>Loading Exercise Name...</span>
+                        )}
+                        <button className="edit-pencil-editor" onClick={() => toggleExerciseEditMode(exercise.id)}>
+                        {exerciseEditModes[exercise.id] ? <i class="fas fa-minus"></i> : <i className="fas fa-pencil-alt"></i>}
+                        </button>
+                    </div>
                 </div>
 
                 {/* Sets for the Exercise */}
@@ -138,22 +144,25 @@ function EditWorkoutDetails({ workoutId, isModal }) {
                 {exercise.ExerciseSets && exercise.ExerciseSets.length > 0 ? (
                     <ul>
                     {exercise.ExerciseSets.map((set, index) => (
-                        <li key={set.id || index}>
-                        <p>
-                            <strong>Set {index + 1}:</strong> {set.sets} sets x {set.reps} reps @{" "}
-                            {set.weight} lbs
-                        </p>
-                        {exerciseEditModes[exercise.id] && (
-                            <button
-                            onClick={async () =>
-                                await dispatch(
-                                exerciseActions.deleteSetFromExercise(workoutId, exercise.id, set.id)
-                                )
-                            }
-                            >
-                            Delete Set
-                            </button>
-                        )}
+                        <li className="set-list" key={set.id || index}>
+                            <span className="set-span">
+                                <strong>Set {index + 1}:</strong> {set.sets} sets x {set.reps} reps @{" "}
+                                {set.weight} lbs
+                            </span>
+                            {exerciseEditModes[exercise.id] && (
+
+                                <button
+                                className="set-trash-button"
+                                onClick={async () =>
+                                    await dispatch(
+                                    exerciseActions.deleteSetFromExercise(workoutId, exercise.id, set.id)
+                                    )
+                                }
+                                >
+                                <i className="fas fa-trash"></i>
+                                </button>
+
+                            )}
                         </li>
                     ))}
                     </ul>
@@ -186,9 +195,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
                     </>
                 )}
 
-                <button onClick={() => toggleExerciseEditMode(exercise.id)}>
-                    {exerciseEditModes[exercise.id] ? "Done" : "Edit"}
-                </button>
+
                 </li>
             ))}
             </ul>
@@ -203,11 +210,6 @@ function EditWorkoutDetails({ workoutId, isModal }) {
             {showExerciseForm ? "Cancel" : "Add Exercise"}
         </button>
 
-        {isModal && (
-        <div>
-            <button onClick={closeModal}>Close</button>
-        </div>
-        )}
         </div>
         {!isModal &&
         <div className="previous-stats">
@@ -216,7 +218,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
           {showPreviousStats ?  "Show Workout Stats" : "Show Exercise Stats"}
         </button>
         {showPreviousStats ? (
-          Object.keys(previousStats).length > 0 ? (  // <-- Removed the extra curly braces
+          Object.keys(previousStats).length > 0 ? (
             <ul>
               {Object.entries(previousStats).map(([exerciseTypeId, exercises]) => (
                 <li key={exerciseTypeId}>
@@ -224,7 +226,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
                     <strong>Exercise:</strong> {exercises?.ExerciseType?.name || "Error Loading Exercise"}
                   </div>
 
-                  <h5>Sets</h5>
+                  <h4>Sets</h4>
                   {exercises?.ExerciseSets && exercises.ExerciseSets.length > 0 ? (
                     <ul>
                       {exercises.ExerciseSets.map((set, index) => (
