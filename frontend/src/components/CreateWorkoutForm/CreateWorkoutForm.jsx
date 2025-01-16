@@ -1,14 +1,16 @@
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as workoutActions from "../../store/workout";
 import CreateNewTypeForm from "../CreateNewTypeForm";
+import { useNotification } from "../../context/NotificationContext";
 import "./CreateWorkoutForm.css"
 
 function CreateWorkoutForm() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { showNotification } = useNotification();
 
     const workoutTypes = useSelector((state) => state.workouts.workoutTypes);
     const [showNewTypeForm, setShowNewTypeForm] = useState(false);
@@ -21,10 +23,10 @@ function CreateWorkoutForm() {
 
     const onSubmit = async (data) => {
         try {
-            const newWorkout = await dispatch(workoutActions.createWorkout(data))
+            await dispatch(workoutActions.createWorkout(data))
             reset();
             navigate('/workouts/view')
-            return newWorkout;
+            showNotification('Workout Created!', 'success');
         } catch(error) {
             setError("root", {
                 message: "Failed to Create Workout"
@@ -39,20 +41,27 @@ function CreateWorkoutForm() {
     };
 
     return (
-        <div>
+        <div className="create-workout-form-div">
             {showNewTypeForm ? (
                 <CreateNewTypeForm
                     thunk={workoutActions.createWorkoutType}
-                    type="workout"
+                    type="Workout"
                     onSuccess={() => {
                         setShowNewTypeForm(false);
-                        // dispatch(workoutActions.fetchWorkoutTypes());
                     }}
                     onCancel={() => setShowNewTypeForm(false)}
                 />
             ) : (
                 <form className="create-workout-form" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="create-workout-link-div">
+                        <Link to="/home" className="back-button">Back to Dashboard</Link>
+                    </div>
+                    <label className='create-workout-label' htmlFor="create-workout-select-field">Create a New Workout!</label>
+                    <div className="hitting-div">
+                        <label>What are you hitting today?</label>
+                    </div>
                     <select
+                        id='create-workout-select-field'
                         className="create-workout-form-input"
                         {...register("workoutTypeId", { required: "Please select a workout focus" })}
                         onChange={handleDropdownChange}
@@ -67,10 +76,10 @@ function CreateWorkoutForm() {
                         <option value="add-new">+ Add New Workout Focus</option>
                     </select>
                     {errors.workoutTypeId && (
-                        <p className="error-text">{errors.workoutTypeId.message}</p>
+                        <p className="landing-page-error">{errors.workoutTypeId.message}</p>
                     )}
 
-                    <button disabled={isSubmitting} type="submit">
+                    <button className="create-workout-button" disabled={isSubmitting} type="submit">
                         {isSubmitting ? "Creating Workout..." : "Create Workout"}
                     </button>
                 </form>

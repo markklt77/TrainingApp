@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import * as weightActions from '../../store/weight';
 import './WeightLog.css';
 import WeightForm from '../WeightForm/WeightForm';
+import OpenModalButton from '../OpenModalButton';
+import DeleteModal from '../../DeleteModal';
 
 const WeightLog = () => {
   const dispatch = useDispatch();
@@ -30,7 +32,7 @@ const WeightLog = () => {
   const handleDelete = async (weightId) => {
     try {
         await dispatch(weightActions.deleteWeight(weightId));
-        setSuccessMessage('Weight log deleted successfully!');
+        setSuccessMessage('Weight log deleted!');
         setTimeout(() => {
           setSuccessMessage('');
         }, 3000);
@@ -137,12 +139,14 @@ const WeightLog = () => {
                   {trend === 'neutral' && '→'}
                 </span> */}
 
-                <button
+                {/* <button
                   className="delete-button"
                   onClick={() => handleDelete(weight.id)}
                 >
                   <img src="https://cdn-icons-png.flaticon.com/512/860/860829.png" alt="Delete" />
-                </button>
+                </button> */}
+
+                <OpenModalButton modalComponent={<DeleteModal entityIds={{weightId: weight.id}} entityType={"Weight Log"} deleteAction={weightActions.deleteWeight}/>} buttonText={<img src="https://cdn-icons-png.flaticon.com/512/860/860829.png" alt="Delete" />} cName={"delete-button"}/>
               </li>
             );
           })}

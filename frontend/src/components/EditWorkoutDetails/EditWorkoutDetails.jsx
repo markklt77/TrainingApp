@@ -7,12 +7,12 @@ import * as workoutActions from "../../store/workout";
 import * as exerciseActions from "../../store/exercise";
 import CreateSetForm from "../CreateSetForm";
 import EditWorkoutForm from "../EditWorkoutForm";
-import { useModal } from "../../context/Modal";
 import './EditWorkoutDetails.css';
+import OpenModalButton from "../OpenModalButton";
+import DeleteModal from "../../DeleteModal";
 
 function EditWorkoutDetails({ workoutId, isModal }) {
   const [showPreviousStats, setShowPreviousStats] = useState(false);
-  const [showExerciseForm, setShowExerciseForm] = useState(false);
   const [showSetFormForExercise, setShowSetFormForExercise] = useState({});
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState(false);
@@ -21,7 +21,6 @@ function EditWorkoutDetails({ workoutId, isModal }) {
   const workout = useSelector((state) => state.workouts.workout);
 
   const filteredWorkouts = useSelector((state) => state.workouts.filteredWorkouts)
-  const { closeModal } = useModal();
 
   const [previousWorkout, setPreviousWorkout] = useState()
 
@@ -31,10 +30,6 @@ function EditWorkoutDetails({ workoutId, isModal }) {
   const toggleShowPreviousStats = () => {
     setShowPreviousStats((prev) => !prev)
   }
-
-  const toggleExerciseForm = () => {
-    setShowExerciseForm((prevState) => !prevState);
-  };
 
   const toggleSetForm = (exerciseId) => {
     setShowSetFormForExercise((prevState) => ({
@@ -124,7 +119,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
         {workout.Exercises && workout.Exercises.length > 0 ? (
             <ul>
             {workout.Exercises.map((exercise) => (
-                <li key={exercise.id}>
+                <li className='exercise-list-item-li' key={exercise.id}>
                 <div className="exercise-header-div">
                     <strong>Exercise:</strong>{" "}
                     <div className="exercise-name-div">
@@ -151,16 +146,17 @@ function EditWorkoutDetails({ workoutId, isModal }) {
                             </span>
                             {exerciseEditModes[exercise.id] && (
 
-                                <button
-                                className="set-trash-button"
-                                onClick={async () =>
-                                    await dispatch(
-                                    exerciseActions.deleteSetFromExercise(workoutId, exercise.id, set.id)
-                                    )
-                                }
-                                >
-                                <i className="fas fa-trash"></i>
-                                </button>
+                                // <button
+                                // className="set-trash-button"
+                                // onClick={async () =>
+                                //     await dispatch(
+                                //     exerciseActions.deleteSetFromExercise(workoutId, exercise.id, set.id)
+                                //     )
+                                // }
+                                // >
+                                // <i className="fas fa-trash"></i>
+                                // </button>
+                                <OpenModalButton modalComponent={<DeleteModal entityIds={{workoutId: workoutId, exerciseId: exercise.id, setId: set.id}} entityType={"Set"} deleteAction={exerciseActions.deleteSetFromExercise}/>} buttonText={<i className="fas fa-trash"></i>} cName={"set-trash-button"}/>
 
                             )}
                         </li>
@@ -173,15 +169,17 @@ function EditWorkoutDetails({ workoutId, isModal }) {
                 {/* Edit Mode Buttons for Each Exercise */}
                 {exerciseEditModes[exercise.id] && (
                     <>
-                    <button
+                    {/* <button
+                        className="editor-button-delete"
                         onClick={async () =>
                         await dispatch(exerciseActions.deleteExerciseFromWorkout(workoutId, exercise.id))
                         }
                     >
                         Delete Exercise
-                    </button>
+                    </button> */}
+                    <OpenModalButton modalComponent={<DeleteModal entityIds={{workoutId: workoutId, exerciseId: exercise.id}} entityType={'Exercise'} deleteAction={exerciseActions.deleteExerciseFromWorkout}/>} buttonText={'Delete Exercise'} cName={'editor-button-delete'}/>
 
-                    <button onClick={() => toggleSetForm(exercise.id)}>
+                    <button className="editor-button" onClick={() => toggleSetForm(exercise.id)}>
                         {showSetFormForExercise[exercise.id] ? "Cancel" : "Add Set"}
                     </button>
 
@@ -203,12 +201,11 @@ function EditWorkoutDetails({ workoutId, isModal }) {
             <p>No exercises found for this workout.</p>
         )}
 
-        {/* Add Exercise Button */}
-        {showExerciseForm && <ExerciseForm workoutId={workout.id} />}
+        <ExerciseForm workoutId={workout.id} />
 
-        <button onClick={toggleExerciseForm}>
+        {/* <button className='editor-button' onClick={toggleExerciseForm}>
             {showExerciseForm ? "Cancel" : "Add Exercise"}
-        </button>
+        </button> */}
 
         </div>
         {!isModal &&

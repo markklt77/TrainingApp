@@ -29,6 +29,22 @@
     background-color: #0056b3;
 }
 
+.close-editor-button {
+
+    all: unset;
+    padding: 0.25em 0.5em;
+    margin-top: 3em;
+    border-radius: 5px;
+    color: white;
+    background-color: grey;
+}
+
+.close-editor-button:hover {
+    cursor: pointer;
+    background-color: rgb(92, 92, 92);
+}
+
+
 .open-modal-button {
     all: unset;
 }
@@ -41,6 +57,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    width: 40%;
 }
 
 .render-details-header {
@@ -51,8 +68,11 @@
 
 .edit-workout-details {
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     top: -3em;
-    left: 25em;
+    left: 24em;
     max-height: 40em;
     overflow-y: scroll;
     background-color: white;
@@ -87,7 +107,7 @@
     max-width: 40%;
   }
 
-  /* Optional fade-in-out animation */
+
   @keyframes fadeInOut {
     0% {
       opacity: 0;

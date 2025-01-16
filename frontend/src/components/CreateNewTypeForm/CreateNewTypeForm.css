@@ -1,0 +1,13 @@
+.create-new-type-form {
+    padding: 1em 0em;
+}
+
+.type-form-label {
+    padding-right: 1em;
+}
+
+.form-buttons {
+    margin-top: 1em;
+    display: flex;
+    justify-content: space-between;
+}

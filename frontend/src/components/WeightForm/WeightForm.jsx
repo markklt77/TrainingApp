@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNotification } from "../../context/NotificationContext";
 import * as weightActions from '../../store/weight'
 import './WeightForm.css'
 
 const WeightForm = ({ onClose }) => {
   const dispatch = useDispatch();
-  const [successMessage, setSuccessMessage] = useState("");
+  const { showNotification } = useNotification();
   const {
     register,
     handleSubmit,
@@ -18,12 +18,9 @@ const WeightForm = ({ onClose }) => {
     try {
       await dispatch(weightActions.createWeight(data.weight));
       await dispatch(weightActions.fetchWeights())
-      reset();
-      setSuccessMessage("Weight Logged!");
-      setTimeout(() => {
-        setSuccessMessage("");
-        onClose();
-      }, 3000)
+    //reset();
+      onClose();
+      showNotification('Weight Logged!', 'success')
 
     } catch (err) {
       return err;
@@ -32,9 +29,6 @@ const WeightForm = ({ onClose }) => {
 
   return (
     <>
-        {successMessage && (
-            <div className="success-message">{successMessage}</div>
-        )}
         <form className='weight-form' onSubmit={handleSubmit(onSubmit)}>
             <div className="weight-form-div">
             <label className='weight-log-label' htmlFor="weight">Enter your weight:</label>

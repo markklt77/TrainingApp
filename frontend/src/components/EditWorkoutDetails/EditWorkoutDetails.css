@@ -8,6 +8,7 @@
     display: flex;
     justify-content: space-between;
     margin: 1em 0em;
+
 }
 
 .set-trash-button {
@@ -45,6 +46,28 @@
     text-align: center;
     /* background-color: #007bff;; */
 }
+
+.editor-button-delete {
+
+    all: unset;
+    padding: 0.25em 0.5em;
+    border-radius: 5px;
+    color: white;
+    background-color: red;
+    margin-right: 1em;
+}
+
+.exercise-list-item-li {
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid rgb(226, 226, 226);
+}
+
+.editor-button-delete:hover {
+    cursor: pointer;
+    background-color: rgb(218, 0, 0)
+}
+
 
 .edit-pencil-editor:hover {
     cursor: pointer;

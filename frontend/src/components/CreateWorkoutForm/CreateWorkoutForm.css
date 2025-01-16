@@ -2,6 +2,62 @@
     color: rgb(248, 1, 1);
 }
 
-/* .create-workout-form-input {
+.hitting-div {
+    /* border: 1px solid red; */
+    font-size: 1.2em;
+    width: 10.1em;
+    margin-bottom: 0.5em;
+}
+.create-workout-button {
+    all: unset;
+    margin-top: 5em;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    color: white;
+    background-color: #007bff;
+}
 
-} */
+.create-workout-button:hover {
+    cursor: pointer;
+    background-color: #0056b3;
+    box-shadow: 5px 5px 5px rgb(129, 128, 128);
+}
+
+
+.create-workout-label {
+    margin: 2em 0em;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.create-workout-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5em;
+    background-color: white;
+    min-width: 30%;
+    height: 30em;
+    border-radius: 25px;
+}
+
+.create-workout-form-div {
+    display: flex;
+    justify-content: center;
+}
+
+#create-workout-select-field {
+    border-radius: 5px;
+    padding: 0.5em;
+}
+
+#create-workout-select-field:focus {
+    border: 2px solid #0056b3;
+    border-radius: 5px;
+}
+
+.create-workout-link-div {
+    /* border: 1px solid red; */
+    min-width: 100%;
+    padding: 2em 0em 0em 4em;
+}

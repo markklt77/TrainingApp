@@ -4,6 +4,7 @@ import * as workoutActions from "../store/workout"
 import OpenModalButton from "./OpenModalButton";
 import EditWorkoutDetails from "./EditWorkoutDetails";
 import './RenderWorkoutDetails.css';
+import DeleteModal from "../DeleteModal";
 
 function RenderWorkoutDetails( { workoutId } ) {
 
@@ -35,12 +36,6 @@ function RenderWorkoutDetails( { workoutId } ) {
             await dispatch(workoutActions.deleteWorkout(workoutId));
             await dispatch(workoutActions.findMostRecentWorkout())
             await dispatch(workoutActions.fetchAllWorkouts())
-            setSuccessMessage("Workout successfully deleted!")
-
-            // await dispatch(workoutActions.findWorkoutsByFocus())
-            setTimeout(async () => {
-                setSuccessMessage("")
-            }, 3000)
 
         } catch (error) {
             setSuccessMessage("Something went wrong")
@@ -92,7 +87,7 @@ function RenderWorkoutDetails( { workoutId } ) {
                     {showEditDetails && (
                         <div className="edit-workout-details">
                             <EditWorkoutDetails workoutId={workoutId} isModal={true} />
-                            <button onClick={toggleEditDetails}>Close Editor</button>
+                            <button className='close-editor-button' onClick={toggleEditDetails}>Close Editor</button>
                         </div>
                     )}
             </div>
@@ -145,7 +140,7 @@ function RenderWorkoutDetails( { workoutId } ) {
                 <p>No exercises found for this workout.</p>
             )}
             <div>
-                <button className='delete-icon' onClick={handleDelete}><i className="fas fa-trash"></i></button>
+                <OpenModalButton modalComponent={<DeleteModal entityType={'Workout'} deleteAction={handleDelete}/>} buttonText={<i className="fas fa-trash"></i>} cName={'delete-icon'}/>
             </div>
         </div>
     );

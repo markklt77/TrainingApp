@@ -1,0 +1,26 @@
+.exercise-addition-button {
+    all: unset;
+    margin: 1em 0em;
+    padding: 0.25em 0.5em;
+    border-radius: 5px;
+    color: white;
+    background-color: #007bff;
+}
+
+.exercise-addition-button:hover {
+    cursor: pointer;
+    background-color: #0056b3;
+}
+
+.create-exercise-form-button-div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.create-exercise-form {
+    max-width: 90%;
+}
+
+select {
+    cursor: pointer;
+}

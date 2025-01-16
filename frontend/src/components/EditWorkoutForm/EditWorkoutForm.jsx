@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import * as workoutActions from "../../store/workout";
 import CreateNewTypeForm from "../CreateNewTypeForm";
+import { useNotification } from "../../context/NotificationContext";
 import "./EditWorkoutForm.css"
 
 function EditWorkoutForm( { workoutId, currentFocus }) {
@@ -10,7 +11,8 @@ function EditWorkoutForm( { workoutId, currentFocus }) {
 
     const workoutTypes = useSelector((state) => state.workouts.workoutTypes);
     const [showNewTypeForm, setShowNewTypeForm] = useState(false);
-    const {register, handleSubmit, reset, setValue, setError, formState: { errors, isSubmitting } }= useForm();
+    const {register, handleSubmit, setValue, setError, formState: { errors, isSubmitting } }= useForm();
+    const { showNotification } = useNotification();
 
     useEffect(() => {
         dispatch(workoutActions.fetchWorkoutTypes());
@@ -24,7 +26,7 @@ function EditWorkoutForm( { workoutId, currentFocus }) {
         try {
             const { workoutTypeId } = data
             const newWorkout = await dispatch(workoutActions.editWorkoutFocus(workoutId, { workoutTypeId }))
-            reset();
+            showNotification('Focus Updated!', 'success')
             return newWorkout;
         } catch(error) {
             setError("root", {
@@ -39,7 +41,10 @@ function EditWorkoutForm( { workoutId, currentFocus }) {
         }
     };
 
+
+
     return (
+
         <div>
             {showNewTypeForm ? (
                 <CreateNewTypeForm
@@ -71,7 +76,7 @@ function EditWorkoutForm( { workoutId, currentFocus }) {
                     )}
 
                     <button className='editor-button'disabled={isSubmitting} type="submit">
-                        {isSubmitting ? "Saving..." : "Save Edit"}
+                        {isSubmitting ? "Saving..." : "Change Focus"}
                     </button>
                 </form>
             )}

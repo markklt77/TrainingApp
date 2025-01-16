@@ -1,0 +1,15 @@
+.create-set-form {
+    margin-top: 1em;
+}
+
+.set-form-input {
+    margin: 0.5em 0cm;
+
+}
+
+.set-input-label-div {
+    max-width: 10em;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-direction: column;
+}
