@@ -14,15 +14,18 @@ module.exports = {
     await Workout.bulkCreate([
       {
         userId: 1,
-        workoutTypeId: 1
+        workoutTypeId: 1,
+        current: true
       },
       {
         userId: 2,
-        workoutTypeId: 2
+        workoutTypeId: 2,
+        current: false
       },
       {
         userId: 3,
-        workoutTypeId: 3
+        workoutTypeId: 3,
+        current: false
       }
     ], { validate: true })
   },

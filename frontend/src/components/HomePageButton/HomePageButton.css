@@ -1,17 +1,20 @@
 .home-page-button {
-    /* color: white; */
-    color: #4A90E2;
-    font-size: 1em;
-    /* background-color: #4A90E2; */
-    background-color: white;
-    width: 20vw;
-    height: 20vh;
-    border-radius: 50px;
+    all: unset;
+    text-align: center;
+    color: white;
+    font-size: 1.1em;
+    background-color:#005ea6;
+    width: 10em;
+    height: 4em;
+    border-radius: 20px;
 }
 
 
 .home-page-button:hover {
     cursor: pointer;
-    /* background-color: #3a73b4; */
-    background-color: rgb(216, 215, 215);
+    background-color: #2c6cb6;
+}
+
+.home-page-button.active {
+    background-color: #2c6cb6;
 }

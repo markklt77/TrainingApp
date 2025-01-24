@@ -11,12 +11,13 @@ function LandingPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate()
-  const [isSignUp, setisSignUp] = useState(false);
+//   const [isSignUp, setisSignUp] = useState(false);
+  const [isPage, setIsPage] = useState('Home')
 
-  const toggleSignUp = () => {
-    setisSignUp((prev) => !prev)
+//   const toggleSignUp = () => {
+//     setisSignUp((prev) => !prev)
 
-  }
+//   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,84 +34,96 @@ function LandingPage() {
       });
   };
   return (
-
-    <div className='left-right-landing-page'>
-         {!isSignUp && (
-        <div className="landing-page-container">
-             <div className='landing-page-header'>
-                 <div className='fit-log-image-div'>
-                     <img src="/fitlog_icon.png" alt="icon" className='fit-log-image'/>
-                 </div>
-                 <h2 className="name-header">FitLog</h2>
-             </div>
-             <form onSubmit={handleSubmit} className="landing-form">
-                 <div className="input-container">
-                 <input
-                     className='landing-page-input'
-                     type="text"
-                     value={credential}
-                     onChange={(e) => setCredential(e.target.value)}
-                     required
-                 />
-                 <label className='landing-page-label'>
-                     Username or Email
-                 </label>
-                 <span className='envelope'><i className="fa fa-envelope"></i></span>
-                 </div>
-                 <div className="input-container">
-
-                 <input
-                     className='landing-page-input'
-                     type="password"
-                     value={password}
-                     onChange={(e) => setPassword(e.target.value)}
-                     required
-                 />
-                 <label className='landing-page-label'>
-                     Password
-                 </label>
-                 <span className='key'><i className="fa fa-key"></i></span>
-                 {errors.credential && (
-                 <p className='landing-page-error'>{errors.credential}</p>
-                 )}
-                 </div>
-
-
-                     <button className='log-in-button' type="submit">Log In</button>
-
-             </form>
-             <div className='no-account'>
-                 <span className='form-text'>Don&#39;t have an account?</span>
-                 <button className='switch-to-sign-up' onClick={() => toggleSignUp()}>Sign Up</button>
-             </div>
-            </div>
-        )}
-        <div>
-            {isSignUp && <SignupFormPage/>}
-            {isSignUp && (
-            <div className='no-account'>
-                <span className='form-text'>Already have an account?</span>
-                <button className='switch-to-sign-up' onClick={() => toggleSignUp()}>Log In</button>
-            </div>)}
-        </div>
-        <div className='landing-page-right'>
-            {/* <div className='landing-image-caption'>Easily Track Your Gym Progress With <span className='fitlog-word'>Fitlog</span>!</div> */}
-            <div className='landing-page-picture-div'>
-                <div className='landing-page-image-caption'>Easily Keep Track Of Your Gym Progress With <span>Fitlog</span>!</div>
-                <img src="/fitlog_creature.png" alt="icon" className='side-image'/>
+    <div className='everything-landing-page-holder'>
+        <div className='landing-page-nav-bar'>
+            <div className='landing-page-menu'>
+                <button className='landing-page-menu-button' onClick={() => setIsPage('Home')}>Home</button>
+                <button className='landing-page-menu-button' onClick={() => setIsPage('LogIn')}>Login</button>
+                <button className='landing-page-menu-button' onClick={() => setIsPage('SignUp')}>Sign Up</button>
             </div>
         </div>
+        <div className='left-right-landing-page'>
+            {isPage === 'Home' && (
+                <div className='main-description-div'>
+                    <div className='description-content-holder'>
+                        <h1 className='discover'>Discover Fitlog:Your Ultimate Gym Progress Tracker</h1>
+                        <p className='description-paragraph'>Welcome to Fitog, your go-to solution for tracking your gym progress.
+                        With our user-friendly interface, you can effortlessly create and manage your workout
+                        routines, monitor your progress, and keep a record of your weight changes.
+                        </p>
+                        <button className='main-sign-up-button' onClick={() => setIsPage('SignUp')}>Sign Up to Get Tracking!</button>
+                    </div>
 
-        <div className="custom-shape-divider-bottom-1736645714">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" className="shape-fill"></path>
-                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" className="shape-fill"></path>
-                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" className="shape-fill"></path>
-            </svg>
+                </div>
+            )}
+            {isPage === 'LogIn' && (
+            <div className="landing-page-container">
+                <div className='landing-page-header'>
+                    <div className='fit-log-image-div'>
+                        <img src="/fitlog_icon.png" alt="icon" className='fit-log-image'/>
+                    </div>
+                    <h2 className="name-header">FitLog</h2>
+                </div>
+                <form onSubmit={handleSubmit} className="landing-form">
+                    <div className="input-container">
+                    <input
+                        className='landing-page-input'
+                        type="text"
+                        value={credential}
+                        onChange={(e) => setCredential(e.target.value)}
+                        required
+                    />
+                    <label className='landing-page-label'>
+                        Username or Email
+                    </label>
+                    <span className='envelope'><i className="fa fa-envelope"></i></span>
+                    </div>
+                    <div className="input-container">
+
+                    <input
+                        className='landing-page-input'
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <label className='landing-page-label'>
+                        Password
+                    </label>
+                    <span className='key'><i className="fa fa-key"></i></span>
+                    {errors.credential && (
+                    <p className='landing-page-error'>{errors.credential}</p>
+                    )}
+                    </div>
+
+
+                        <button className='log-in-button' type="submit">Log In</button>
+
+                </form>
+                <div className='no-account'>
+                    <span className='form-text'>Don&#39;t have an account?</span>
+                    <button className='switch-to-sign-up' onClick={() => setIsPage('SignUp')}>Sign Up</button>
+                </div>
+            </div>
+            )}
+            {isPage ==='SignUp' && (
+            <div className='sign-up-form-div'>
+                {isPage === 'SignUp' && <SignupFormPage/>}
+                {isPage === 'SignUp' && (
+                <div className='no-account'>
+                    <span className='form-text'>Already have an account?</span>
+                    <button className='switch-to-sign-up' onClick={() => setIsPage('LogIn')}>Log In</button>
+                </div>)}
+            </div>
+            )}
+            <div className='landing-page-right'>
+                <div className='landing-page-picture-div'>
+                    <img src="/New_Landing_Page_image.PNG" alt="icon" className='side-image'/>
+                </div>
+            </div>
+
         </div>
-
     </div>
-
   );
 }
 

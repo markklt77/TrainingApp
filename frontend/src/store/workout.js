@@ -7,7 +7,14 @@ const SET_WORKOUT_TYPES = "/workout/setWorkoutTypes";
 const ADD_EXERCISE = "workout/addExercise";
 const REMOVE_WORKOUT = "workout/removeWorkout";
 const SET_ALL_WORKOUTS = "workout/setAll";
-const SET_WORKOUT_BY_ID = "workout/setId"
+const SET_WORKOUT_BY_ID = "workout/setId";
+const SET_CURRENT_WORKOUT = 'workouts/SET_CURRENT_WORKOUT';
+
+
+const setCurrentWorkout = (workout) => ({
+    type: SET_CURRENT_WORKOUT,
+    workout,
+});
 
 const setWorkoutId = (workout) => ({
     type: SET_WORKOUT_BY_ID,
@@ -179,13 +186,58 @@ export const fetchWorkoutTypes = () => async (dispatch) => {
 
     if (response.ok) {
         const workoutTypes = await response.json();
-        dispatch(setWorkoutTypes(workoutTypes));
+        await dispatch(setWorkoutTypes(workoutTypes));
         return workoutTypes
     } else {
         throw new Error("Failed to load WorkoutTypes")
     }
 
 }
+
+//get current workout
+export const findCurrentWorkout = () => async (dispatch) => {
+    const response = await csrfFetch('/api/workouts/current');
+    if (response.ok) {
+        const currentWorkout = await response.json();
+        dispatch(setCurrentWorkout(currentWorkout));
+    } else {
+        throw new Error("Failed to load Current Workout")
+    }
+};
+
+
+//set current status to true
+export const setWorkoutasCurrent = (workoutId) => async (dispatch) => {
+
+      const response = await csrfFetch(`/api/workouts/${workoutId}/set-current`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to set workout as current');
+      }
+
+      const data = await response.json();
+
+      dispatch(setCurrentWorkout(data.workout))
+  };
+
+
+//set current status to false
+export const finishCurrentWorkout = (workoutId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/workouts/${workoutId}/finish`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+        // const updatedWorkout = await response.json();
+        dispatch(setCurrentWorkout(null));
+    } else {
+        throw new Error('Failed to finish workout');
+    }
+};
 
 //create a new workout focus
 export const createWorkoutType = (workoutTypeData) => async (dispatch) => {
@@ -196,7 +248,7 @@ export const createWorkoutType = (workoutTypeData) => async (dispatch) => {
 
     if (response.ok) {
         const newWorkoutType = await response.json();
-        dispatch(fetchWorkoutTypes());
+        await dispatch(fetchWorkoutTypes());
         return newWorkoutType;
     } else {
         throw new Error('Failed to create workout type');
@@ -208,6 +260,7 @@ const initialState = {
     workouts: [],
     workout: null,
     mostRecentWorkout: null,
+    currentWorkout: null,
     filteredWorkouts: [],
     workoutTypes: [],
     workoutIds: {}
@@ -223,17 +276,11 @@ const workoutReducer = (state = initialState, action) => {
                     [action.payload.id]: action.payload
                 }
             }
-        // case REMOVE_WORKOUT: {
-        //     const { [action.payload]: _, ...remainingWorkoutIds } = state.workoutIds;
-        //     return {
-        //         ...state,
-        //         workout: null,
-        //         workoutIds: remainingWorkoutIds,
-        //         filteredWorkouts: state.filteredWorkouts.filter(
-        //             (workout) => workout.id !== action.payload
-        //         ),
-        //     };
-        // }
+        case SET_CURRENT_WORKOUT:
+            return {
+                ...state,
+                currentWorkout: action.workout,
+            };
         case SET_ALL_WORKOUTS:
             return {
                 ...state,

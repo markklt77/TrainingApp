@@ -8,6 +8,7 @@ const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation');
 const user = require('../../db/models/user');
 const router = express.Router();
+const { sequelize } = require('../../db/models')
 
 const validateWorkoutCreation = [
     requireAuth,
@@ -105,6 +106,22 @@ router.get('/workoutTypes', requireAuth, async(req, res) => {
 
 })
 
+router.get('/current', async (req, res) => {
+    const userId = req.user.id;
+
+        const currentWorkout = await Workout.findOne({
+            where: { userId, current: true },
+        });
+
+        if (!currentWorkout) {
+            return res.status(404).json({ error: 'No current workout found.' });
+        }
+
+        return res.json(currentWorkout);
+
+});
+
+
 router.get('/most-recent', requireAuth, async (req, res) => {
 
     const { focus } = req.query;
@@ -192,35 +209,83 @@ router.get('/:workoutId', requireAuth, async(req, res) => {
 })
 
 
+// router.post('/', validateWorkoutCreation, async (req, res) => {
+//     const { workoutTypeId } = req.body;
+//     const userId = req.user.id;
+
+//       let workoutType = await WorkoutType.findOne({
+//         where: { id: workoutTypeId, userId },
+//       });
+
+
+//       if (!workoutType || !workoutType.id) {
+//         return res.status(500).json({ error: 'Failed to find workout type.' });
+//       }
+
+//       const newWorkout = await Workout.create({
+//         workoutTypeId: workoutType.id,
+//         userId,
+//       });
+
+//       return res.status(201).json({
+//         newWorkout,
+//       });
+
+//   });
+
 router.post('/', validateWorkoutCreation, async (req, res) => {
     const { workoutTypeId } = req.body;
     const userId = req.user.id;
 
-      let workoutType = await WorkoutType.findOne({
+    try {
+
+      const workoutType = await WorkoutType.findOne({
         where: { id: workoutTypeId, userId },
       });
 
-    //   if (!workoutType) {
-    //     workoutType = await WorkoutType.create({
-    //       focus,
-    //       userId,
-    //     });
-    //   }
-
       if (!workoutType || !workoutType.id) {
-        return res.status(500).json({ error: 'Failed to find workout type.' });
+        return res.status(404).json({ error: 'Workout type not found.' });
       }
 
-      const newWorkout = await Workout.create({
-        workoutTypeId: workoutType.id,
-        userId,
-      });
 
-      return res.status(201).json({
-        newWorkout,
-      });
+      const transaction = await sequelize.transaction();
 
+      try {
+
+        await Workout.update(
+          { current: false },
+          { where: { userId }, transaction }
+        );
+
+
+        const newWorkout = await Workout.create(
+          {
+            workoutTypeId: workoutType.id,
+            userId,
+            current: true,
+          },
+          { transaction }
+        );
+
+
+        await transaction.commit();
+
+        return res.status(201).json({
+          newWorkout,
+        });
+      } catch (error) {
+
+        await transaction.rollback();
+        throw error;
+      }
+    } catch (error) {
+      console.error('Error creating workout:', error);
+      return res.status(500).json({
+        error: 'Failed to create workout.',
+      });
+    }
   });
+
 
 //create a new workout type
 router.post('/workoutTypes', validateWorkoutTypeCreation, async (req, res) => {
@@ -304,6 +369,55 @@ router.post('/exercises/:exerciseId', validateExerciseSetCreation, async(req, re
         newSetEntry
     })
 })
+
+
+//set a workout as current
+router.patch('/:workoutId/set-current', requireAuth, async (req, res) => {
+    const { workoutId } = req.params;
+
+    const workout = await Workout.findByPk(workoutId);
+
+    if (!workout || workout.userId !== req.user.id) {
+    return res.status(404).json({ error: 'Workout not found' });
+    }
+
+    const transaction = await sequelize.transaction();
+    try {
+    await Workout.update(
+        { current: false },
+        { where: { userId: req.user.id }, transaction }
+    );
+
+    workout.current = true;
+    await workout.save({ transaction });
+
+    await transaction.commit();
+
+    return res.status(200).json({ workout });
+    } catch (error) {
+    await transaction.rollback();
+    throw error;
+    }
+
+  });
+
+
+
+//set current to false after finishing a workout
+router.patch('/:workoutId/finish', requireAuth, async (req, res) => {
+    const { workoutId } = req.params;
+
+        const workout = await Workout.findByPk(workoutId);
+
+        if (!workout || workout.userId !== req.user.id) {
+            return res.status(404).json({ error: 'Workout not found' });
+        }
+
+        workout.current = false;
+        await workout.save();
+
+        return res.json(workout);
+});
 
 
 router.put('/:workoutId', validateWorkoutCreation, async(req, res) => {

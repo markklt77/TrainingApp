@@ -45,6 +45,10 @@ function RenderWorkoutDetails( { workoutId } ) {
         }
     };
 
+    const handleSetCurrent = async () => {
+        dispatch(workoutActions.setWorkoutasCurrent(workoutId))
+    }
+
     const toggleEditDetails = () => {
         setShowEditDetails((prevState) => !prevState);
     };
@@ -72,7 +76,7 @@ function RenderWorkoutDetails( { workoutId } ) {
 
             <div className="render-details-header-div">
                 <h3 className="render-details-header">Workout Details</h3>
-
+                <div className="editor-set-current-buttons">
                     <div
                         className="open-modal-button-div"
                         onClick={toggleEditDetails}
@@ -82,6 +86,10 @@ function RenderWorkoutDetails( { workoutId } ) {
                             <i className="fas fa-pencil-alt"></i>
                         </span>
                     </div>
+
+                    <button className="set-current-button" onClick={handleSetCurrent}><span><i class="fas fa-running"></i></span></button>
+                </div>
+
 
 
                     {showEditDetails && (
@@ -122,8 +130,8 @@ function RenderWorkoutDetails( { workoutId } ) {
                                     {exercise.ExerciseSets.map((set, index) => (
                                         <li key={set.id || index}>
                                             <p>
-                                                <strong>Set {index + 1}:</strong>{" "}
-                                                {set.sets} sets x {set.reps} reps @{" "}
+                                                {/* <strong>Set {index + 1}:</strong>{" "} */}
+                                                {set.sets} {set.sets > 1 ? "sets" : "set"} x {set.reps}  {set.reps > 1 ? "reps" : "rep"} @{" "}
                                                 {set.weight} lbs
 
                                             </p>

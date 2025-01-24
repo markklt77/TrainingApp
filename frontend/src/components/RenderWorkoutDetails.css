@@ -10,6 +10,10 @@
     transition: background-color 0.3s ease;
 }
 
+/* ul {
+    list-style-type: none;
+} */
+
 .delete-icon:hover {
     background-color: rgb(255, 0, 0)
 }
@@ -27,6 +31,20 @@
 
 .edit-pencil:hover {
     background-color: #0056b3;
+}
+
+.set-current-button {
+    padding: 0.2em 0.5em;
+    margin-left: 0.5em;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: grey;
+}
+
+.set-current-button:hover {
+    cursor: pointer;
+    background-color: rgb(92, 92, 92);
 }
 
 .close-editor-button {

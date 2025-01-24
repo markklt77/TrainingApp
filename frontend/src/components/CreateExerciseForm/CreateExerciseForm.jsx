@@ -64,7 +64,7 @@ function ExerciseForm({ workoutId }) {
                     {showNewTypeForm ? (
                         <CreateNewTypeForm
                             thunk={exerciseActions.createExerciseType}
-                            type="Exercise"
+                            type={"Exercise"}
                             onSuccess={() => {
                                 setShowNewTypeForm(false);
                             }}

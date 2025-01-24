@@ -4,8 +4,9 @@
     width: 80%;
     max-width: 900px;
     background-color: white;
+    /* background-color: #EAE6DA; */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 }
 
 .view-workout-page h1 {

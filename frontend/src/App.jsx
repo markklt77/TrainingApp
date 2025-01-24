@@ -11,7 +11,6 @@ import CurrentWorkoutPage from './components/CurrentWorkoutPage';
 
 import LandingPage from './components/LandingPage';
 import WeightLog from './components/WeightLog/WeightLog';
-import CalenderBar from './components/CalenderBar';
 
 
 function Layout() {
@@ -28,7 +27,6 @@ function Layout() {
   return (
     <div className='nav-bar-outlet'>
       <Navigation isLoaded={isLoaded} />
-      <CalenderBar/>
       {isLoaded && <Outlet />}
     </div>
   );
@@ -59,7 +57,7 @@ const router = createBrowserRouter([
         element: <ViewWorkoutPage/>
       },
       {
-        path: '/home/workouts/current',
+        path: '/workouts/current',
         element: <CurrentWorkoutPage/>
       },
       {

@@ -31,7 +31,7 @@
     font-weight: 700;
     display: flex;
     justify-content: center;
-    margin: 1em 0em;
+    margin: 0.8em 0em 0.1em 0em;
 }
 
 .calendar-bar {
@@ -39,7 +39,8 @@
     background-color: white;
     min-width: 80%;
     border-radius: 20px;
-    /* border: 1px solid red; */
+    height: 8em;
+    box-shadow: 1px 3px 5px grey;
 }
 
 .calender-bar-holder {
@@ -63,7 +64,7 @@
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
-    height: 30px;
+    height: 25px;
     transform: rotateY(180deg);
 }
 

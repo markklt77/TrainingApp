@@ -1,17 +1,13 @@
 import './HomePageButton.css';
-import { useNavigate } from 'react-router-dom';
 
 
 
-function HomePageButton({path, title, icon}) {
-    const navigate = useNavigate();
+function HomePageButton({title, icon, isActive}) {
 
-    const handleClick = () => {
-        navigate(path)
-    };
+    const active = isActive? 'active' : "";
 
     return (
-        <button className="home-page-button" onClick={handleClick}>
+        <button className={`home-page-button ${active}`}>
             <span className="button-title">{title}</span>
             <span className="button-icon">{icon}</span>
         </button>

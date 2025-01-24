@@ -2,6 +2,19 @@
     color: rgb(248, 1, 1);
 }
 
+.form-holder-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    /* background-color: #F1EAD2; */
+    min-width: 30%;
+    margin-top: 3em;
+    height: 30em;
+    border-radius: 10px;
+}
+
 .hitting-div {
     /* border: 1px solid red; */
     font-size: 1.2em;
@@ -10,7 +23,7 @@
 }
 .create-workout-button {
     all: unset;
-    margin-top: 5em;
+    margin-top: 4em;
     padding: 0.5em 1em;
     border-radius: 5px;
     color: white;
@@ -25,7 +38,7 @@
 
 
 .create-workout-label {
-    margin: 2em 0em;
+    margin: 1.5em 0em 2em 0em;
     font-size: 2em;
     font-weight: 700;
 }
@@ -34,21 +47,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5em;
-    background-color: white;
+    /* margin-top: 5em; */
+    /* background-color: white;
     min-width: 30%;
     height: 30em;
-    border-radius: 25px;
+    border-radius: 25px; */
 }
 
 .create-workout-form-div {
     display: flex;
     justify-content: center;
+    /* border: 1px solid orange; */
 }
 
 #create-workout-select-field {
     border-radius: 5px;
     padding: 0.5em;
+    overflow-y: scroll;
 }
 
 #create-workout-select-field:focus {
@@ -59,5 +74,5 @@
 .create-workout-link-div {
     /* border: 1px solid red; */
     min-width: 100%;
-    padding: 2em 0em 0em 4em;
+    padding: 2em 0em 0em 3em;
 }
