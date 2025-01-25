@@ -2,19 +2,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 45%;
+    width: 48em;
     background-color: white;
     padding: 2em 5em;
     border-radius: 10px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-    margin-top: 2em;
+    /* margin-top: 2em; */
 }
 
 .no-current-workout-div {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 25%;
+    width: 25em;
     background-color: white;
     padding: 2em 5em;
     border-radius: 10px;

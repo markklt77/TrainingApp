@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as workoutActions from "../store/workout"
 import OpenModalButton from "./OpenModalButton";
+import SetCurrentConfirmation from "./setCurrentConfirmation";
 import EditWorkoutDetails from "./EditWorkoutDetails";
 import './RenderWorkoutDetails.css';
 import DeleteModal from "../DeleteModal";
+// import { useNavigate } from "react-router-dom";
 
 function RenderWorkoutDetails( { workoutId } ) {
 
@@ -13,6 +15,7 @@ function RenderWorkoutDetails( { workoutId } ) {
     const [successMessage, setSuccessMessage] = useState("");
     const [showEditDetails, setShowEditDetails] = useState(false);
     const dispatch = useDispatch();
+    // const navigate = useNavigate();
     const workout = useSelector((state) => state.workouts.workoutIds[workoutId])
 
 
@@ -45,9 +48,9 @@ function RenderWorkoutDetails( { workoutId } ) {
         }
     };
 
-    const handleSetCurrent = async () => {
-        dispatch(workoutActions.setWorkoutasCurrent(workoutId))
-    }
+    // const navigateCurrent = async () => {
+    //     navigate('workouts/current');
+    // }
 
     const toggleEditDetails = () => {
         setShowEditDetails((prevState) => !prevState);
@@ -86,8 +89,8 @@ function RenderWorkoutDetails( { workoutId } ) {
                             <i className="fas fa-pencil-alt"></i>
                         </span>
                     </div>
-
-                    <button className="set-current-button" onClick={handleSetCurrent}><span><i class="fas fa-running"></i></span></button>
+                    <OpenModalButton modalComponent={<SetCurrentConfirmation action={workoutActions.setWorkoutasCurrent} entityId={workoutId} finish={true}/>} buttonText={<i class="fas fa-running"></i>} cName={'set-current-button'}></OpenModalButton>
+                    {/* <button className="set-current-button" onClick={handleSetCurrent}><span><i class="fas fa-running"></i></span></button> */}
                 </div>
 
 

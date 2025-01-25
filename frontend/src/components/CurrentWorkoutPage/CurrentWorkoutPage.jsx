@@ -4,6 +4,8 @@ import * as workoutActions from "../../store/workout";
 import EditWorkoutDetails from "../EditWorkoutDetails";
 import { Link, NavLink } from "react-router-dom";
 import './CurrentWorkoutPage.css'
+import OpenModalButton from "../OpenModalButton";
+import SetCurrentConfirmation from "../setCurrentConfirmation";
 
 function CurrentWorkoutPage() {
     const dispatch = useDispatch();
@@ -54,7 +56,8 @@ function CurrentWorkoutPage() {
                 </div>
                 <h1 className="current-workout-header">Current Workout</h1>
                 <EditWorkoutDetails workoutId={currentWorkout?.id} isModal={false}/>
-                <button onClick={handleFinishWorkout} className="finish-workout-button">Finish Workout</button>
+                <OpenModalButton cName='finish-workout-button' buttonText="Finish Workout" modalComponent={<SetCurrentConfirmation entityId={currentWorkout.id} finish={false} action={workoutActions.finishCurrentWorkout}/>}/>
+                {/* <button onClick={handleFinishWorkout} className="finish-workout-button">Finish Workout</button> */}
             </div>
         </div>
 
