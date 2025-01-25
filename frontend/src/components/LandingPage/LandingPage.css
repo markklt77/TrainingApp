@@ -37,6 +37,7 @@
     left: 20em;
     top: 5em;
     width: 90%;
+    z-index: 10;
     /* border: 1px solid red; */
 }
 
@@ -275,17 +276,6 @@ border: none;
     transform: rotate(180deg);
 }
 
-.custom-shape-divider-bottom-1736645714 svg {
-    position: relative;
-    display: block;
-    width: calc(150% + 1.3px);
-    height: 169px;
-    transform: rotateY(180deg);
-}
-
-.custom-shape-divider-bottom-1736645714 .shape-fill {
-    fill: #4A90E2;
-}
 
 .side-image {
     max-width: 100%;
