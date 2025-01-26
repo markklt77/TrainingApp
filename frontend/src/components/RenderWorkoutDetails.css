@@ -18,8 +18,12 @@
     background-color: rgb(255, 0, 0)
 }
 
+.edit-pencil:hover {
+    background-color: #0056b3;
+}
+
 .edit-pencil {
-    padding: 0.25em 0.5em;
+    padding: 0.4em 0.5em;
     font-size: 0.75em;
     color: white;
     background-color: #007bff;
@@ -29,12 +33,16 @@
     transition: background-color 0.3s ease;
 }
 
-.edit-pencil:hover {
-    background-color: #0056b3;
+.open-modal-button-div {
+    display: inline-block;
+    height: 2em;
+    width: 2em;
 }
 
 .set-current-button {
     padding: 0.4em 0.5em;
+    height: 2em;
+    font-size: 0.75em;
     width: 2em;
     /* margin-left: 0.5em; */
     border: none;
@@ -67,11 +75,6 @@
 .open-modal-button {
     all: unset;
 
-}
-
-.open-modal-button-div {
-    display: inline-block;
-    width: 2em;
 }
 
 .render-details-header-div {

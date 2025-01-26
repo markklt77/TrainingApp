@@ -11,7 +11,7 @@ const SET_WORKOUT_BY_ID = "workout/setId";
 const SET_CURRENT_WORKOUT = 'workouts/SET_CURRENT_WORKOUT';
 
 
-const setCurrentWorkout = (workout) => ({
+export const setCurrentWorkout = (workout) => ({
     type: SET_CURRENT_WORKOUT,
     workout,
 });

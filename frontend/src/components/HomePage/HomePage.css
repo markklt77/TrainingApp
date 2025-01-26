@@ -1,8 +1,8 @@
 .home-page {
-    margin-top: 1em;
+    /* margin-top: 1em; */
     padding-top: 2em;
-    height: 65vh;
-    width: 50%;
+    height: 55vh;
+    width: 30%;
     border-radius: 10px;
     background-color: white;
     /* display: flex;
@@ -10,6 +10,57 @@
     flex-direction: column; */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.home-success-message {
+    font-size: 1.15em;
+}
+
+.home-navlink-div {
+    margin: 1em 0em;
+}
+
+.to-do-header {
+    margin-bottom: 1.5em;
+}
+
+.home-navlink-div {
+    display: flex;
+    align-items: center;
+}
+
+.home-page-link {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    background-color: #007bff;
+}
+
+.weight-actions {
+    border-bottom: 1px solid lightgray;
+    max-width: 50%;
+}
+
+.workout-actions {
+    border-bottom: 1px solid lightgray;
+    max-width: 50%;
+}
+
+.home-page-link:hover {
+    cursor: pointer;
+    background-color: #0056b3;
+    box-shadow: 5px 5px 5px rgb(129, 128, 128);
+}
+
+.workouts-done,
+.streak {
+    font-size: 1.25em;
+}
+
+.fire-emote {
+    color: rgb(253, 168, 10);
 }
 
 .bold-data {
@@ -25,7 +76,7 @@
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 72vh; /* Full viewport height */
+    height: 72vh;
 }
 
 .home-page h2 {

@@ -1,3 +1,3 @@
-import SetCurrentConfirmation from "./setCurrentConfirmation";
+import SetCurrentConfirmation from "./SetCurrentConfirmation";
 
 export default SetCurrentConfirmation;

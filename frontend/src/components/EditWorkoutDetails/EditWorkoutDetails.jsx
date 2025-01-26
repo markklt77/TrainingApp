@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import ExerciseForm from "../CreateExerciseForm";
 import * as workoutActions from "../../store/workout";
 import * as exerciseActions from "../../store/exercise";
@@ -19,6 +20,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
   const [fetchError, setFetchError] = useState(false);
   const [previousStats, setPreviousStats] = useState({});
   const dispatch = useDispatch();
+  const location = useLocation();
   const workout = useSelector((state) => state.workouts.workout);
 
   const filteredWorkouts = useSelector((state) => state.workouts.filteredWorkouts)
@@ -94,6 +96,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
   }
 
   if (fetchError) {
+    // dispatch(workoutActions.setCurrentWorkout(null));
     return <p>Error loading workout details. Please try again later.</p>;
   }
 
@@ -105,9 +108,14 @@ function EditWorkoutDetails({ workoutId, isModal }) {
   //temporary handleDelete
   const handleDelete = async () => {
     try {
+
         await dispatch(workoutActions.deleteWorkout(workoutId));
-        await dispatch(workoutActions.findMostRecentWorkout())
-        await dispatch(workoutActions.fetchAllWorkouts())
+        if (workout.current) {
+            dispatch(workoutActions.setCurrentWorkout(null))
+        }
+        await dispatch(workoutActions.findMostRecentWorkout());
+        await dispatch(workoutActions.fetchAllWorkouts());
+
 
     } catch (error) {
         setSuccessMessage("Something went wrong")
@@ -245,6 +253,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
           </div>
 
           {showPreviousStats ? (
+
             Object.keys(previousStats).length > 0 ? (
               <ul>
                 {Object.entries(previousStats).map(([exerciseTypeId, exercises]) => (
@@ -330,6 +339,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
           )}
         </div>
           }
+
       </div>
     </div>
   );

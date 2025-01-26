@@ -5,7 +5,7 @@ import EditWorkoutDetails from "../EditWorkoutDetails";
 import { Link, NavLink } from "react-router-dom";
 import './CurrentWorkoutPage.css'
 import OpenModalButton from "../OpenModalButton";
-import SetCurrentConfirmation from "../setCurrentConfirmation";
+import SetCurrentConfirmation from "../SetCurrentConfirmation";
 
 function CurrentWorkoutPage() {
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ function CurrentWorkoutPage() {
             try {
                 await dispatch(workoutActions.findCurrentWorkout());
             } catch {
-
+                // await dispatch(workoutActions.setCurrentWorkout(null))
             } finally {
                 setIsLoading(false);
             }
@@ -25,11 +25,6 @@ function CurrentWorkoutPage() {
         fetchMostRecent();
     }, [dispatch]);
 
-    const handleFinishWorkout = async () => {
-        if (currentWorkout) {
-            await dispatch(workoutActions.finishCurrentWorkout(currentWorkout.id));
-        }
-    };
 
     if (isLoading) {
         return <div>Loading current workout...</div>;
@@ -57,7 +52,6 @@ function CurrentWorkoutPage() {
                 <h1 className="current-workout-header">Current Workout</h1>
                 <EditWorkoutDetails workoutId={currentWorkout?.id} isModal={false}/>
                 <OpenModalButton cName='finish-workout-button' buttonText="Finish Workout" modalComponent={<SetCurrentConfirmation entityId={currentWorkout.id} finish={false} action={workoutActions.finishCurrentWorkout}/>}/>
-                {/* <button onClick={handleFinishWorkout} className="finish-workout-button">Finish Workout</button> */}
             </div>
         </div>
 

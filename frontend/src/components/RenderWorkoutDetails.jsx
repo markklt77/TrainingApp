@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as workoutActions from "../store/workout"
 import OpenModalButton from "./OpenModalButton";
-import SetCurrentConfirmation from "./setCurrentConfirmation";
+import SetCurrentConfirmation from "./SetCurrentConfirmation";
 import EditWorkoutDetails from "./EditWorkoutDetails";
 import './RenderWorkoutDetails.css';
 import DeleteModal from "../DeleteModal";
@@ -37,6 +37,9 @@ function RenderWorkoutDetails( { workoutId } ) {
     const handleDelete = async () => {
         try {
             await dispatch(workoutActions.deleteWorkout(workoutId));
+            if (workout.current) {
+                dispatch(workoutActions.setCurrentWorkout(null))
+            }
             await dispatch(workoutActions.findMostRecentWorkout())
             await dispatch(workoutActions.fetchAllWorkouts())
 
@@ -89,7 +92,9 @@ function RenderWorkoutDetails( { workoutId } ) {
                             <i className="fas fa-pencil-alt"></i>
                         </span>
                     </div>
-                    <OpenModalButton modalComponent={<SetCurrentConfirmation action={workoutActions.setWorkoutasCurrent} entityId={workoutId} finish={true}/>} buttonText={<i class="fas fa-running"></i>} cName={'set-current-button'}></OpenModalButton>
+                    <div className="open-modal-button-div">
+                        <OpenModalButton modalComponent={<SetCurrentConfirmation action={workoutActions.setWorkoutasCurrent} entityId={workoutId} finish={true}/>} buttonText={<i className="fas fa-running"></i>} cName={'set-current-button'}></OpenModalButton>
+                    </div>
                     {/* <button className="set-current-button" onClick={handleSetCurrent}><span><i class="fas fa-running"></i></span></button> */}
                 </div>
 
