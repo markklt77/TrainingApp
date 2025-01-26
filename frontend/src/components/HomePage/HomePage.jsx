@@ -48,7 +48,7 @@ function HomePage() {
                             </NavLink>
                         </div>
                     ) : hasWorkoutToday ? (
-                        <p className='home-success-message'>✅ Today's workout completed!</p>
+                        <p className='home-success-message'>✅ Today&apos;s workout completed!</p>
                     ) : (
                         <div className='home-navlink-div'>
                             <NavLink to="/workouts" className="home-page-link">
@@ -65,7 +65,7 @@ function HomePage() {
                             </NavLink>
                             </div>
                     ) : (
-                        <p className='home-success-message'>✅ Today's weight logged!</p>
+                        <p className='home-success-message'>✅ Today&apos;s weight logged!</p>
                     )}
                 </div>
             </div>

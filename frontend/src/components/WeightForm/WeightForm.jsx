@@ -10,7 +10,6 @@ const WeightForm = ({ onClose }) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
