@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
 import ExerciseForm from "../CreateExerciseForm";
 import * as workoutActions from "../../store/workout";
 import * as exerciseActions from "../../store/exercise";
@@ -20,7 +19,6 @@ function EditWorkoutDetails({ workoutId, isModal }) {
   const [fetchError, setFetchError] = useState(false);
   const [previousStats, setPreviousStats] = useState({});
   const dispatch = useDispatch();
-  const location = useLocation();
   const workout = useSelector((state) => state.workouts.workout);
 
   const filteredWorkouts = useSelector((state) => state.workouts.filteredWorkouts)
@@ -107,22 +105,12 @@ function EditWorkoutDetails({ workoutId, isModal }) {
 
   //temporary handleDelete
   const handleDelete = async () => {
-    try {
-
         await dispatch(workoutActions.deleteWorkout(workoutId));
         if (workout.current) {
             dispatch(workoutActions.setCurrentWorkout(null))
         }
         await dispatch(workoutActions.findMostRecentWorkout());
         await dispatch(workoutActions.fetchAllWorkouts());
-
-
-    } catch (error) {
-        setSuccessMessage("Something went wrong")
-        setTimeout(() => {
-            setSuccessMessage("");
-          }, 3000);
-    }
 };
 
   return (
@@ -158,7 +146,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
                           <span>Loading Exercise Name...</span>
                           )}
                           <button className="edit-pencil-editor" onClick={() => toggleExerciseEditMode(exercise.id)}>
-                          {exerciseEditModes[exercise.id] ? <i class="fas fa-minus"></i> : <i className="fas fa-pencil-alt"></i>}
+                          {exerciseEditModes[exercise.id] ? <i className="fas fa-minus"></i> : <i className="fas fa-pencil-alt"></i>}
                           </button>
                       </div>
                   </div>
