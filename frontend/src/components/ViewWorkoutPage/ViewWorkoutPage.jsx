@@ -95,9 +95,9 @@ function ViewWorkoutPage() {
         setCurrentPage((prev) => Math.max(prev - 1, 1));
     };
 
-    if (!mostRecentWorkout) {
-        return <div>Loading...</div>;
-    }
+    // if (!mostRecentWorkout) {
+    //     return <div>Loading...</div>;
+    // }
 
     return (
         <div className="view-workout-page">
@@ -121,24 +121,20 @@ function ViewWorkoutPage() {
 
             {!focus && !searchLocked && viewMode === 'mostRecent' && (
                 <div>
-                    {!mostRecentWorkout || mostRecentWorkout.length === 0 ? (
-                        <div>Loading...</div>
+                    <h2>Most Recent Workout</h2>
+                    {mostRecentWorkout && mostRecentWorkout.length > 0 ? (
+                        <RenderWorkoutDetails workoutId={mostRecentWorkout[0]?.id} />
                     ) : (
-                        <div>
-                            <h2>Most Recent Workout</h2>
-                            <RenderWorkoutDetails workoutId={mostRecentWorkout[0]?.id} />
-                        </div>
+                        <p>No workouts found.</p>
                     )}
                 </div>
             )}
 
             {!focus && !searchLocked && viewMode === 'allWorkouts' && (
                 <div>
-                    {!workouts || workouts.length === 0 ? (
-                        <div>Loading...</div>
-                    ) : (
+                    <h2>All Workouts</h2>
+                    {workouts && workouts.length > 0 ? (
                         <div>
-                            <h2>All Workouts</h2>
                             <div className="workout-list">
                                 {paginate(workouts).map((workout) => (
                                     workout.id ? (
@@ -151,10 +147,24 @@ function ViewWorkoutPage() {
                                 ))}
                             </div>
                             <div className="pagination-controls">
-                                <button className='next-prev-button' onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
-                                <button  className='next-prev-button' onClick={handleNextPage} disabled={currentPage * itemsPerPage >= workouts.length}>Next</button>
+                                <button
+                                    className='next-prev-button'
+                                    onClick={handlePreviousPage}
+                                    disabled={currentPage === 1}
+                                >
+                                    Previous
+                                </button>
+                                <button
+                                    className='next-prev-button'
+                                    onClick={handleNextPage}
+                                    disabled={currentPage * itemsPerPage >= workouts.length}
+                                >
+                                    Next
+                                </button>
                             </div>
                         </div>
+                    ) : (
+                        <p>No workouts found.</p>
                     )}
                 </div>
             )}
@@ -167,19 +177,33 @@ function ViewWorkoutPage() {
                     ) : filteredWorkouts.length === 0 ? (
                         <p>No workouts found for &quot;{focus}&quot;.</p>
                     ) : (
-                        <div className="workout-list">
-                            {paginate(filteredWorkouts).map((workout) => (
-                                workout.id ? (
-                                    <div key={workout.id} className="workout-item">
-                                        <RenderWorkoutDetails workoutId={workout.id} />
-                                    </div>
-                                ) : (
-                                    <p key={workout.id}>Invalid workout data</p>
-                                )
-                            ))}
+                        <div>
+                            <div className="workout-list">
+                                {paginate(filteredWorkouts).map((workout) => (
+                                    workout.id ? (
+                                        <div key={workout.id} className="workout-item">
+                                            <RenderWorkoutDetails workoutId={workout.id} />
+                                        </div>
+                                    ) : (
+                                        <p key={workout.id}>Invalid workout data</p>
+                                    )
+                                ))}
+                            </div>
                             <div className="pagination-controls">
-                                <button className='next-prev-button' onClick={handlePreviousPage} disabled={currentPage === 1}>Previous</button>
-                                <button className='next-prev-button' onClick={handleNextPage} disabled={currentPage * itemsPerPage >= filteredWorkouts.length}>Next</button>
+                                <button
+                                    className='next-prev-button'
+                                    onClick={handlePreviousPage}
+                                    disabled={currentPage === 1}
+                                >
+                                    Previous
+                                </button>
+                                <button
+                                    className='next-prev-button'
+                                    onClick={handleNextPage}
+                                    disabled={currentPage * itemsPerPage >= filteredWorkouts.length}
+                                >
+                                    Next
+                                </button>
                             </div>
                         </div>
                     )}
@@ -187,6 +211,7 @@ function ViewWorkoutPage() {
             )}
         </div>
     );
+
 }
 
 export default ViewWorkoutPage;
