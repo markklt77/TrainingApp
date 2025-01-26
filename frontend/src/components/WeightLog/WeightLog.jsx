@@ -11,15 +11,13 @@ import DeleteModal from '../../DeleteModal';
 
 const WeightLog = () => {
   const dispatch = useDispatch();
-
-
   const weights = useSelector((state) => state.weights.weights);
-
 
   const [editingWeightId, setEditingWeightId] = useState(null);
   const [newWeight, setNewWeight] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const getWeights = async () => {
@@ -28,21 +26,18 @@ const WeightLog = () => {
     getWeights();
   }, [dispatch]);
 
-
-  const handleDelete = async (weightId) => {
-    try {
-        await dispatch(weightActions.deleteWeight(weightId));
-        setSuccessMessage('Weight log deleted!');
-        setTimeout(() => {
-          setSuccessMessage('');
-        }, 3000);
-      } catch (err) {
-        setTimeout(() => {
-            setSuccessMessage('Something went wrong');
-          }, 3000);
-      }
+  const paginate = (data) => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return data.slice(start, start + itemsPerPage);
   };
 
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(weights.length / itemsPerPage)));
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
 
   const handleSave = async (weightId) => {
     if (newWeight) {
@@ -52,38 +47,23 @@ const WeightLog = () => {
     }
   };
 
-
   const handleCancel = () => {
     setEditingWeightId(null);
     setNewWeight('');
   };
 
-
   const handleChange = (event) => {
     setNewWeight(event.target.value);
-  };
-
-
-  const getTrend = (currentWeight, previousWeight) => {
-    if (currentWeight > previousWeight) {
-      return 'up';
-    } else if (currentWeight < previousWeight) {
-      return 'down';
-    } else {
-      return 'neutral';
-    }
   };
 
   const handleCloseForm = () => {
     setShowForm(false);
   };
 
+  const paginatedWeights = paginate(weights);
+
   return (
     <div className="weight-log">
-
-    {successMessage && (
-            <div className="delete-success-message">{successMessage}</div>
-        )}
       <Link to="/home" className="back-button">Back to Dashboard</Link>
       <h2>Your Weight Log</h2>
 
@@ -94,63 +74,71 @@ const WeightLog = () => {
         {showForm ? '-' : '+'}
       </button>
 
-
       <div className={`form-container ${showForm ? "show" : "hide"}`}>
-        {showForm && <WeightForm onClose={handleCloseForm}/>}
+        {showForm && <WeightForm onClose={handleCloseForm} />}
       </div>
+
       {weights.length > 0 ? (
-        <ul>
-          {weights.map((weight, index) => {
-            const previousWeight = index > 0 ? weights[index - 1].weight : weight.weight;
-            const trend = getTrend(weight.weight, previousWeight);
+        <>
+          <ul>
+            {paginatedWeights.map((weight) => {
 
-            return (
-              <li key={weight.id} className="weight-item">
-                <span className="weight-date">
-                  {new Date(weight.createdAt).toLocaleDateString()}
-                </span>
-
-                {editingWeightId === weight.id ? (
-                  <div className="edit-container">
-                    <input
-                      type="number"
-                      value={newWeight}
-                      onChange={handleChange}
-                      placeholder={weight.weight}
-                    />
-                    <button className='weight-log-button' onClick={() => handleSave(weight.id)}>Save</button>
-                    <button className='weight-log-button' onClick={handleCancel}>Cancel</button>
-                  </div>
-                ) : (
-                  <span
-                    className="weight-value"
-                    onClick={() => {
-                      setEditingWeightId(weight.id);
-                      setNewWeight(weight.weight);
-                    }}
-                  >
-                    {weight.weight} lbs
+              return (
+                <li key={weight.id} className="weight-item">
+                  <span className="weight-date">
+                    {new Date(weight.createdAt).toLocaleDateString()}
                   </span>
-                )}
 
-                {/* <span className={`weight-trend ${trend}`}>
-                  {trend === 'up' && '↑'}
-                  {trend === 'down' && '↓'}
-                  {trend === 'neutral' && '→'}
-                </span> */}
+                  {editingWeightId === weight.id ? (
+                    <div className="edit-container">
+                      <input
+                        type="number"
+                        value={newWeight}
+                        onChange={handleChange}
+                        placeholder={weight.weight}
+                      />
+                      <button className='weight-log-button' onClick={() => handleSave(weight.id)}>Save</button>
+                      <button className='weight-log-button' onClick={handleCancel}>Cancel</button>
+                    </div>
+                  ) : (
+                    <span
+                      className="weight-value"
+                      onClick={() => {
+                        setEditingWeightId(weight.id);
+                        setNewWeight(weight.weight);
+                      }}
+                    >
+                      {weight.weight} lbs
+                    </span>
+                  )}
 
-                {/* <button
-                  className="delete-button"
-                  onClick={() => handleDelete(weight.id)}
-                >
-                  <img src="https://cdn-icons-png.flaticon.com/512/860/860829.png" alt="Delete" />
-                </button> */}
+                  <OpenModalButton
+                    modalComponent={<DeleteModal entityIds={{ weightId: weight.id }} entityType={"Weight Log"} deleteAction={weightActions.deleteWeight} />}
+                    buttonText={<img src="https://cdn-icons-png.flaticon.com/512/860/860829.png" alt="Delete" />}
+                    cName={"delete-button"}
+                  />
+                </li>
+              );
+            })}
+          </ul>
 
-                <OpenModalButton modalComponent={<DeleteModal entityIds={{weightId: weight.id}} entityType={"Weight Log"} deleteAction={weightActions.deleteWeight}/>} buttonText={<img src="https://cdn-icons-png.flaticon.com/512/860/860829.png" alt="Delete" />} cName={"delete-button"}/>
-              </li>
-            );
-          })}
-        </ul>
+          <div className="pagination-controls">
+            <button
+              className="next-prev-button"
+              onClick={handlePrevPage}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <button
+              className="next-prev-button"
+              onClick={handleNextPage}
+              disabled={currentPage * itemsPerPage >= weights.length}
+            >
+              Next
+            </button>
+          </div>
+        </>
       ) : (
         <p>No weight entries found.</p>
       )}
