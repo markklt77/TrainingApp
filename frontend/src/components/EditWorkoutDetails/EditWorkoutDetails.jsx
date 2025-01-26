@@ -87,7 +87,7 @@ function EditWorkoutDetails({ workoutId, isModal }) {
       fetchStats();
 
     // }
-  }, [workout, loading, dispatch]);
+  }, [workout, loading, dispatch, filteredWorkouts]);
 
   if (loading) {
     return <p>Loading workout details...</p>;
