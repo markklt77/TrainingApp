@@ -2,6 +2,7 @@ import './HomePage.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import * as workoutActions from '../../store/workout';
+import * as weightActions from '../../store/weight';
 import { NavLink } from 'react-router-dom';
 
 
@@ -16,6 +17,7 @@ function HomePage() {
     useEffect(() => {
         const getData = async () => {
             await dispatch(workoutActions.fetchAllWorkouts());
+            await dispatch(weightActions.fetchWeights());
             await dispatch(workoutActions.findCurrentWorkout());
         }
         getData();
