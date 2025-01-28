@@ -1,5 +1,5 @@
 .view-workout-page {
-    margin: 2em auto;
+    margin: auto;
     padding: 2em;
     width: 80%;
     max-width: 900px;
@@ -8,6 +8,11 @@
     border-radius: 10px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 }
+
+/* .view-workout-page-holder {
+    display: flex;
+    justify-content: center;
+} */
 
 .next-prev-button {
     padding: 0.4em 0.5em;
@@ -90,6 +95,7 @@
     padding-left: 2.5em; /* Adjust padding to make space for the icon */
 }
 
+
 .view-workout-page .search-icon {
     position: absolute;
     left: 1em; /* Adjust position to fit inside the input */
@@ -100,15 +106,20 @@
     pointer-events: none;
 }
 
-.view-workout-page .workout-list {
-    margin-top: 1em;
-}
 
 .view-workout-page .workout-item {
-    padding: 1em;
+    padding-bottom: 1em;
     border-bottom: 1px solid #ddd;
 }
 
 .view-workout-page .workout-item:last-child {
     border-bottom: none;
+}
+
+@media (max-width: 700px) {
+   .search-button {
+    width: 50%;
+   }
+
+
 }

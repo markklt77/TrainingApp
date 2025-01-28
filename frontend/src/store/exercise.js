@@ -87,6 +87,7 @@ export const fetchExerciseTypes = () => async (dispatch) => {
     if (response.ok) {
          const exerciseTypes = await response.json();
          dispatch(setExerciseTypes(exerciseTypes))
+         return exerciseTypes;
     } else {
         throw new Error("Failed to get exercise types")
     }

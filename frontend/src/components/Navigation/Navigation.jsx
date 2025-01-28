@@ -10,10 +10,10 @@ function Navigation({ isLoaded }) {
 
   return (
     <div className='navigation-div'>
-      {/* <div className='home-logo'>
-
-      </div> */}
-      <div className='links-person-div'>
+      <div className='home-logo'>
+          <h1 className='fit-log'>Fitlog</h1>
+      </div>
+      {/* <div className='links-person-div'> */}
         <div className='home-page-nav-links'>
           <NavLink to="/home" end className='button-nav-link'>
             <span className='nav-icon'><i className="fas fa-home"></i></span><span className='nav-bar-title'>Home</span>
@@ -31,12 +31,15 @@ function Navigation({ isLoaded }) {
             <span className='nav-icon'><i className="fas fa-weight-scale"></i></span><span className='nav-bar-title'>WeightLog</span>
           </NavLink>
         </div>
+
         {isLoaded && (
           <div className='profile-button-person'>
             <ProfileButton user={sessionUser} />
           </div>
         )}
-      </div>
+
+
+      {/* </div> */}
 
     </div>
   );

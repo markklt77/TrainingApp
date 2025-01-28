@@ -6,6 +6,21 @@
 
 }
 
+.home-page-or {
+    font-size: 20px;
+    border-bottom: 1px solid rgb(153, 153, 153);
+    padding: 0em 0.15em;
+    margin-left: 0.75em;
+    margin-right: 0.75em;
+    /* border: 1px solid red; */
+}
+
+.sign-up-demo-div {
+    display: flex;
+    align-items: flex-end;
+
+}
+
 .main-sign-up-button {
     all: unset;
     background-color:#0370ec;
@@ -35,7 +50,7 @@
 .description-content-holder {
     position: absolute;
     left: 20em;
-    top: 5em;
+    top: 2.5em;
     width: 90%;
     z-index: 10;
     /* border: 1px solid red; */
@@ -145,9 +160,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* width: 85vw;
-    height: 85vh; */
-
     background-color: #FEFAF1;
     border-radius: 20px;
     background-size: cover;
@@ -240,11 +252,9 @@ border: none;
 
 .landing-page-picture-div {
     position: relative;
-    /* margin-left: 15em; */
     min-width: 35vw;
     min-height: 90vh;
     overflow: hidden;
-    /* border: 1px solid red; */
 }
 
 .landing-page-image-caption {
@@ -286,4 +296,92 @@ border: none;
     left: 50%;
     transform: translate(-50%, -50%);
 
+}
+
+@media (max-width: 1465px) {
+    .description-content-holder {
+        left: 10em;
+    }
+}
+
+@media (max-width: 1160px) {
+    .discover {
+        font-size: 3em;
+    }
+    .description-paragraph {
+        font-size: 25px;
+    }
+    .main-sign-up-button {
+        font-size: 1em;
+    }
+
+}
+
+@media (max-width: 1000px) {
+    .left-right-landing-page {
+        flex-direction: column;
+    }
+    .description-content-holder {
+        left: 0em;
+    }
+    .landing-page-nav-bar {
+        width: 100vw;
+    }
+    .landing-page-picture-div {
+        display: none;
+    }
+
+}
+
+@media (max-width: 700px) {
+    .description-paragraph {
+        font-size: 20px;
+        margin-bottom: 2em;
+    }
+    .main-description-div {
+        min-width: 80vw;
+    }
+    .discover {
+        font-size: 32px;
+        width: 100%;
+        /* border: 1px solid red; */
+    }
+
+    .description-content-holder {
+        width: 100%;
+    }
+
+    .home-page-or {
+        margin: 1em 0em;
+        font-size: 14px;
+    }
+
+    .sign-up-demo-div {
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-sign-up-button {
+        font-size: 17px;
+        text-align: center;
+        padding: 13px 8px;
+        margin-top: 0em;
+    }
+    .landing-page-nav-bar {
+        justify-content: center;
+    }
+    .landing-page-menu {
+        margin: 0em;
+    }
+    .landing-page-menu-button {
+        font-size: 20px;
+
+    }
+
+    .name-header {
+        font-size: 32px;
+    }
+
+    .landing-page-input {
+        width: 100%;
+    }
 }

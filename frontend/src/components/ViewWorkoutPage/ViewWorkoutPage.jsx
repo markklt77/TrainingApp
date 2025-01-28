@@ -95,18 +95,19 @@ function ViewWorkoutPage() {
         setCurrentPage((prev) => Math.max(prev - 1, 1));
     };
 
-    // if (!mostRecentWorkout) {
-    //     return <div>Loading...</div>;
-    // }
 
     return (
+        <div className="view-workout-page-holder">
         <div className="view-workout-page">
-            <Link to="/home" className="back-button">Back to Dashboard</Link>
+            <div className="create-workout-link-div">
+                <Link to="/home" className="back-button">Back to Dashboard</Link>
+            </div>
+
             <h1>Workout Viewer</h1>
 
             <div className="button-group">
-                <button className='search-button' onClick={() => handleViewToggle("mostRecent")}>Most Recent Workout</button>
-                <button className='search-button' onClick={() => handleViewToggle("allWorkouts")}>Show All Workouts</button>
+                <button className='search-button' onClick={() => handleViewToggle("mostRecent")}>Most Recent </button>
+                <button className='search-button' onClick={() => handleViewToggle("allWorkouts")}>Show All </button>
             </div>
 
             <div className="search-container">
@@ -120,7 +121,7 @@ function ViewWorkoutPage() {
             </div>
 
             {!focus && !searchLocked && viewMode === 'mostRecent' && (
-                <div>
+                <div className="render-details-holder-div">
                     <h2>Most Recent Workout</h2>
                     {mostRecentWorkout && mostRecentWorkout.length > 0 ? (
                         <RenderWorkoutDetails workoutId={mostRecentWorkout[0]?.id} />
@@ -209,6 +210,7 @@ function ViewWorkoutPage() {
                     )}
                 </div>
             )}
+        </div>
         </div>
     );
 

@@ -27,7 +27,15 @@ function CurrentWorkoutPage() {
 
 
     if (isLoading) {
-        return <div>Loading current workout...</div>;
+        return (
+            <div className="current-details-div-holder">
+                <div className="no-current-workout-div">
+
+                </div>
+            </div>
+
+        )
+
     }
 
     if (!currentWorkout) {
@@ -46,7 +54,7 @@ function CurrentWorkoutPage() {
         <div className="current-details-div-holder">
 
             <div className="current-details-div">
-                <div className="current-details-link-holder-div">
+                <div className="create-workout-link-div">
                     <Link to="/home" className="back-button">Back to Dashboard</Link>
                 </div>
                 <h1 className="current-workout-header">Current Workout</h1>

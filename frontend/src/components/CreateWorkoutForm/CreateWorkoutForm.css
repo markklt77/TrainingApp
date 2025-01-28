@@ -23,6 +23,7 @@
 }
 .create-workout-button {
     all: unset;
+    font-size: 1.1em;
     margin-top: 4em;
     padding: 0.5em 1em;
     border-radius: 5px;
@@ -75,4 +76,16 @@
     /* border: 1px solid red; */
     min-width: 100%;
     padding: 2em 0em 0em 3em;
+}
+
+@media (max-width: 700px) {
+    .form-holder-div {
+        width: 90%;
+    }
+
+    .create-workout-link-div {
+        display: none;
+    }
+
+
 }

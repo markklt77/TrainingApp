@@ -11,13 +11,14 @@ function LandingPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate()
-//   const [isSignUp, setisSignUp] = useState(false);
   const [isPage, setIsPage] = useState('Home')
 
-//   const toggleSignUp = () => {
-//     setisSignUp((prev) => !prev)
-
-//   }
+  const loginDemoUser = async () => {
+    dispatch(sessionActions.login({credential: 'demo@user.io', password: 'password'}))
+    .then(() => {
+        navigate('/home')
+    });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +52,12 @@ function LandingPage() {
                         With our user-friendly interface, you can effortlessly create and manage your workout
                         routines, monitor your progress, and keep a record of your weight changes.
                         </p>
-                        <button className='main-sign-up-button' onClick={() => setIsPage('SignUp')}>Sign Up to Get Tracking!</button>
+                        <div className='sign-up-demo-div'>
+                            <button className='main-sign-up-button' onClick={() => setIsPage('SignUp')}>Sign Up to Get Tracking!</button>
+                            <p className='home-page-or'>or</p>
+                            <button className='main-sign-up-button' onClick={loginDemoUser}>Try it as a Demo User!</button>
+                        </div>
+
                     </div>
 
                 </div>

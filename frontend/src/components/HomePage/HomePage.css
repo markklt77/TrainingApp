@@ -93,3 +93,18 @@
     justify-items: center;
     align-items: center;
 }
+
+
+@media (max-width: 700px) {
+    .home-page {
+        width: 90%;
+    }
+
+    .home-page-content-div {
+        margin-left: 2em;
+    }
+
+    .home-page-link {
+        padding: 8px 24px;
+    }
+}

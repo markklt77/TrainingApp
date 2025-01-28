@@ -115,9 +115,6 @@ function EditWorkoutDetails({ workoutId, isModal }) {
 
   return (
     <div className="edit-details-link div">
-      {/* <div className="edit-details-link-div">
-        {!isModal &&  <Link to="/home" className="back-button">Back to Dashboard</Link>}
-      </div> */}
       <div className={`${isModal? '' : 'current-and-previous-details-div'}`}>
           <div className="workout-details">
           <h3 className='render-details-header'>Workout Details</h3>
