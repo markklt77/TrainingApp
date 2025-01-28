@@ -18,3 +18,10 @@
     cursor: pointer;
     background-color: #0056b3;
 }
+
+
+@media (max-width: 700px) {
+    .edit-workout-button {
+        margin-left: 1em;
+    }
+}

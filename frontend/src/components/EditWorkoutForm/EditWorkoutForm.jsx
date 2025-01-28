@@ -75,7 +75,7 @@ function EditWorkoutForm( { workoutId, currentFocus }) {
                         <p className="error-text">{errors.workoutTypeId.message}</p>
                     )}
 
-                    <button className='editor-button'disabled={isSubmitting} type="submit">
+                    <button className='editor-button edit-workout-button'disabled={isSubmitting} type="submit">
                         {isSubmitting ? "Saving..." : "Change Focus"}
                     </button>
                 </form>

@@ -64,7 +64,9 @@ const WeightLog = () => {
 
   return (
     <div className="weight-log">
-      <Link to="/home" className="back-button">Back to Dashboard</Link>
+      <div className='create-workout-link-div'>
+        <Link to="/home" className="back-button">Back to Dashboard</Link>
+      </div>
       <h2>Your Weight Log</h2>
 
       <button

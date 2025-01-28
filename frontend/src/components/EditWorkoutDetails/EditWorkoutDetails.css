@@ -12,7 +12,7 @@
 .edit-details-link-div {
     /* border: 1px solid red; */
     margin-bottom: 2em;
-    width: 90%;
+    width: 100%;
 }
 
 .toggle-previous-button-div {
@@ -31,6 +31,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8em;
+    width: 100%;
+    /* border: 1px solid red; */
 }
 
 .set-trash-button {
