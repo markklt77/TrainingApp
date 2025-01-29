@@ -149,14 +149,14 @@ function ViewWorkoutPage() {
                             </div>
                             <div className="pagination-controls">
                                 <button
-                                    className='next-prev-button'
+                                    className={`next-prev-button ${currentPage === 1 ? "disabled" : ""}`}
                                     onClick={handlePreviousPage}
                                     disabled={currentPage === 1}
                                 >
                                     Previous
                                 </button>
                                 <button
-                                    className='next-prev-button'
+                                    className={`next-prev-button ${(currentPage * itemsPerPage >= workouts.length) ? "disabled" : ""}`}
                                     onClick={handleNextPage}
                                     disabled={currentPage * itemsPerPage >= workouts.length}
                                 >

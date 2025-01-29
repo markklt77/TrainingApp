@@ -126,14 +126,14 @@ const WeightLog = () => {
 
           <div className="pagination-controls">
             <button
-              className="next-prev-button"
+              className={`next-prev-button ${currentPage === 1 ? "disabled" : ""}`}
               onClick={handlePrevPage}
               disabled={currentPage === 1}
             >
               Previous
             </button>
             <button
-              className="next-prev-button"
+              className={`next-prev-button ${(currentPage * itemsPerPage >= weights.length) ? "disabled" : ""}`}
               onClick={handleNextPage}
               disabled={currentPage * itemsPerPage >= weights.length}
             >

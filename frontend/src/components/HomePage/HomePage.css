@@ -1,15 +1,11 @@
 .home-page {
-    /* margin-top: 1em; */
     padding-top: 2em;
     height: 55vh;
     width: 30%;
     border-radius: 10px;
     background-color: white;
-    /* display: flex;
-    align-items: center;
-    flex-direction: column; */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    transition: background-color 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
 .home-success-message {
@@ -85,14 +81,6 @@
     margin-bottom: 1em;
 }
 
-.home-page-button-container {
-    display: grid;
-    gap: 3em;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    justify-items: center;
-    align-items: center;
-}
 
 
 @media (max-width: 700px) {
