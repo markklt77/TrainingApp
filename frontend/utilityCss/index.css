@@ -1,0 +1,20 @@
+/* TODO: Add sitewide styles */
+
+* {
+    margin: 0;
+    line-height: calc(1em + 0.5rem);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family: 'General Sans', sans-serif;
+    /* background-color: var(--clr-dark);
+    color: var(--clr-light); */
+
+    /* background-color: #FEFAF1; */
+}
