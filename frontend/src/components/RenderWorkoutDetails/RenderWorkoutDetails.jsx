@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as workoutActions from "../store/workout"
-import OpenModalButton from "./OpenModalButton";
-import SetCurrentConfirmation from "./SetCurrentConfirmation";
-import EditWorkoutDetails from "./EditWorkoutDetails";
+import * as workoutActions from "../../store/workout";
+import OpenModalButton from "../OpenModalButton";
+import SetCurrentConfirmation from "../SetCurrentConfirmation";
+import EditWorkoutDetails from "../EditWorkoutDetails";
 import './RenderWorkoutDetails.css';
-import DeleteModal from "../DeleteModal";
+import DeleteModal from "../../DeleteModal";
 // import { useNavigate } from "react-router-dom";
 
 function RenderWorkoutDetails( { workoutId } ) {

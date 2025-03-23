@@ -122,11 +122,11 @@ function LandingPage() {
                 </div>)}
             </div>
             )}
-            <div className='landing-page-right'>
+            {/* <div className='landing-page-right'>
                 <div className='landing-page-picture-div'>
                     <img src="/New_Landing_Page_image.PNG" alt="icon" className='side-image'/>
                 </div>
-            </div>
+            </div> */}
 
         </div>
     </div>
