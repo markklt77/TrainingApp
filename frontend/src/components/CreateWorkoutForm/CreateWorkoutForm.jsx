@@ -45,15 +45,11 @@ function CreateWorkoutForm() {
     };
 
     return (
-        <div className="create-workout-form-div">
-            <div className="form-holder-div">
-                    <div className="create-workout-link-div">
-                        <Link to="/home" className="back-button">Back to Dashboard</Link>
-                    </div>
+            <div className="form-holder-div section">
                     <label className="create-workout-label" >Create a New Workout!</label>
-                    <div className="hitting-div">
-                        <label>What are you hitting today?</label>
-                    </div>
+
+                    <label className="hitting-label">What are you hitting today?</label>
+
 
                     {showNewTypeForm ? (
                         <CreateNewTypeForm
@@ -67,17 +63,17 @@ function CreateWorkoutForm() {
                         <select
                             id="create-workout-select-field"
                             className="create-workout-form-input"
-                            {...register("workoutTypeId", { required: "Please select a workout focus" })}
+                            {...register("workoutTypeId", { required: "Please select a workout type" })}
                             onChange={handleDropdownChange}
                         >
-                            <option value="">Select Workout Focus</option>
+                            <option value="">Select Workout Type</option>
                             {workoutTypes &&
                                 workoutTypes.map((type) => (
                                     <option key={type.id} value={type.id}>
                                         {type.focus}
                                     </option>
                                 ))}
-                            <option value="add-new">+ Add New Workout Focus</option>
+                            <option className='add-new' value="add-new">Add New Workout Type</option>
                         </select>
 
 
@@ -85,7 +81,7 @@ function CreateWorkoutForm() {
                         <p className="landing-page-error">{errors.workoutTypeId.message}</p>
                     )}
 
-                    <button className="create-workout-button" disabled={isSubmitting} type="submit">
+                    <button className="workout-form-button btn" disabled={isSubmitting} type="submit">
                         {isSubmitting ? "Creating Workout..." : "Create Workout"}
                     </button>
 
@@ -95,8 +91,6 @@ function CreateWorkoutForm() {
                 </form>
                 )}
             </div>
-
-        </div>
     );
 }
 

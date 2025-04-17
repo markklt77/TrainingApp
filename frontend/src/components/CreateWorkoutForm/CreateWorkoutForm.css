@@ -10,60 +10,40 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-    /* background-color: #F1EAD2; */
-    min-width: 30%;
-    /* margin-top: 2em; */
-    height: 25em;
+    background-color: var(--clr-slate800);
     border-radius: 10px;
+    width: 40%;
+    margin: auto;
 }
 
-.hitting-div {
-    /* border: 1px solid red; */
-    font-size: 1.2em;
-    width: 10.1em;
-    margin-bottom: 0.5em;
+.workout-form-button {
+    margin: 2rem 0rem;
 }
-.create-workout-button {
-    all: unset;
-    font-size: 1.1em;
-    margin-top: 4em;
-    padding: 0.5em 1em;
-    border-radius: 5px;
-    color: white;
-    background-color: #007bff;
-}
-
-.create-workout-button:hover {
-    cursor: pointer;
-    background-color: #0056b3;
-    box-shadow: 5px 5px 5px rgb(129, 128, 128);
-}
-
 
 .create-workout-label {
-    margin: 1.5em 0em 2em 0em;
-    font-size: 2em;
+    margin: 3rem 0rem 2rem 0rem;
+    font-size: var(--size-2xl);
+    color: var(--clr-light);
     font-weight: 700;
+}
+
+.hitting-label {
+    font-size: var(--size-base);
+    color: var(--clr-slate400);
+    padding-bottom: 1rem;
 }
 
 .create-workout-form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* margin-top: 5em; */
-    /* background-color: white;
-    min-width: 30%;
-    height: 30em;
-    border-radius: 25px; */
 }
 
-.create-workout-form-div {
-    display: flex;
-    justify-content: center;
-    /* border: 1px solid orange; */
+.add-new {
+    color: var(--clr-indigo);
+    font-weight: 700;
 }
+
 
 #create-workout-select-field {
     border-radius: 5px;
@@ -72,7 +52,7 @@
 }
 
 #create-workout-select-field:focus {
-    border: 2px solid #0056b3;
+    border: 2px solid var(--clr-indigo);
     border-radius: 5px;
 }
 

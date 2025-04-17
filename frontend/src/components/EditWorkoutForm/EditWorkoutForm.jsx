@@ -69,14 +69,14 @@ function EditWorkoutForm( { workoutId, currentFocus }) {
                                     {type.focus}
                                 </option>
                             ))}
-                        <option value="add-new">+ Add New Workout Focus</option>
+                        <option className='add-new' value="add-new">Add New Workout Focus</option>
                     </select>
                     {errors.workoutTypeId && (
                         <p className="error-text">{errors.workoutTypeId.message}</p>
                     )}
 
-                    <button className='editor-button edit-workout-button'disabled={isSubmitting} type="submit">
-                        {isSubmitting ? "Saving..." : "Change Focus"}
+                    <button className='change-workout-type-btn btn'disabled={isSubmitting} type="submit">
+                        {isSubmitting ? "Saving..." : "Change Type"}
                     </button>
                 </form>
             )}

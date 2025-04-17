@@ -3,12 +3,29 @@
     padding: 2em;
     width: 80%;
     max-width: 900px;
-    background-color: white;
-    /* background-color: #EAE6DA; */
+    background-color: var(--clr-slate800);
     border-radius: 10px;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-
 }
+
+.view-header {
+    color: var(--clr-light);
+    font-size: var(--size-3xl);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.view-sub-header {
+    font-size: var(--size-2xl);
+    color: var(--clr-slate400);
+    margin: 1.5rem 0rem;
+}
+
+.viewer-p-text {
+    color: var(--clr-slate600);
+    font-size: var(--size-base);
+}
+
 
 .create-workout-link-div {
     display: none;
@@ -34,19 +51,6 @@
     justify-content: space-between;
 }
 
-.view-workout-page h1 {
-    font-size: 2em;
-    color: #333;
-    text-align: center;
-    margin-bottom: 1em;
-}
-
-.view-workout-page h2 {
-    font-size: 1.5em;
-    color: #333;
-    margin-bottom: 1em;
-}
-
 .view-workout-page .button-group {
     display: flex;
     justify-content: center;
@@ -54,41 +58,33 @@
     margin-bottom: 1em;
 }
 
-.search-button {
-    padding: 0.5em 1em;
-    font-size: 1em;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
 .search-button:hover {
     background-color: #0056b3;
 }
 
-.view-workout-page .search-container {
+.search-container {
+    background-color: var(--clr-slate600);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
     position: relative;
     width: 50%;
     margin: 0 auto;
     border: 1px solid #ddd;
     border-radius: 25px;
-    padding: 0.5em 1em;
+    padding: 0.5rem 1rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.view-workout-page .search-container:focus-within {
-    border-color: #007bff;
+.search-container:focus-within {
+    border-color: var(--clr-indigo);
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .view-workout-page input[type="text"] {
+    background-color: var(--clr-slate600);
+    color: var(--clr-slate400);
     font-size: 1em;
     border: none;
     outline: none;
@@ -96,15 +92,20 @@
     padding-left: 2.5em; /* Adjust padding to make space for the icon */
 }
 
+.view-workout-page input::placeholder {
+    color: var(--clr-slate400);
+}
 
-.view-workout-page .search-icon {
+
+.search-icon {
     position: absolute;
-    left: 1em; /* Adjust position to fit inside the input */
-    top: 50%;
+    left: 1rem;
+    top: 55%;
     transform: translateY(-50%);
     width: 1.25em;
     height: 1.25em;
     pointer-events: none;
+    color: var(--clr-rose);
 }
 
 

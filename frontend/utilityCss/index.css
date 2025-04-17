@@ -1,7 +1,7 @@
 /* TODO: Add sitewide styles */
 
 :root {
-
+    /* portfolio colors */
     --clr-background: rgb(2,0,36);
     --clr-dark: #070a13;
     --clr-light: #f1f5f9;
@@ -10,6 +10,14 @@
     --clr-slate800: #1e293b;
     --clr-rose: #e11d48;
     --clr-indigo: #4f46e5;
+
+    /* fitlog colors */
+    --clr-outerspace: #444545;
+    --clr-aquamarine: #2BF8BB;
+    --clr-mint: #C5E0D8;
+    --clr-silver: #C9C9C9;
+    --clr-tearose: #CEABB1;
+
 
 
     /* sizes */
@@ -39,16 +47,20 @@
 
 html {
     scroll-behavior: smooth;
+
 }
 
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
 
 body {
 
     font-family: 'General Sans', sans-serif;
-    /* background-color: var(--clr-dark);
-    color: var(--clr-light); */
+    background-color: var(--clr-dark);
+    /* color: var(--clr-light);
 
-    /* background-color: #FEFAF1; */
+    background-color: #FEFAF1;  */
 }
 
 

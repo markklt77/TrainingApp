@@ -1,82 +1,54 @@
-.delete-icon {
-    padding: 0.5em 1em;
-    margin-top: 0.5em;
-    font-size: 1em;
-    color: rgb(71, 71, 71);
-    background-color: white;
+.btn.delete-icon {
+    padding: 0.25rem 0.5rem;
+    margin-top: 2rem;
+    color: var(--clr-slate800);
     border: 1px solid grey;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 
-
-
-.delete-icon:hover {
-    background-color: rgb(255, 0, 0)
+.btn.pencil {
+    padding: 0.3rem 0.3rem;
+    min-width: 1.5rem;
 }
 
-.edit-pencil:hover {
-    background-color: #0056b3;
+.btn.set-current-button {
+    padding: 0.3rem 0.3rem;
+    min-width: 1.5rem;
+    margin-left: 0.5rem;
 }
 
-.edit-pencil {
-    padding: 0.4em 0.5em;
-    font-size: 0.75em;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.information-text {
+    font-size: var(--size-base);
+    color: var(--clr-slate400);
 }
 
-.open-modal-button-div {
-    display: flex;
-    align-items: center;
-    height: 2em;
-    width: 2em;
+.exercise-header {
+    color: var(--clr-indigo);
+    margin: 1.25rem 0rem;
 }
 
-.editor-set-current-buttons {
-    display: flex;
-    align-items: flex-end;
-    /* border: 1px solid blue; */
+.exercise-type {
+    color: var(--clr-light);
+    font-size: var(--size-base);
+    font-weight: 700;
 }
 
-.set-current-button {
-    padding: 0.4em 0.5em;
-    height: 2em;
-    font-size: 0.75em;
-    width: 2em;
-    /* margin-left: 0.5em; */
-    border: none;
-    border-radius: 5px;
-    color: white;
-    background-color: grey;
-}
-
-.set-current-button:hover {
-    cursor: pointer;
-    background-color: rgb(92, 92, 92);
-}
 
 .close-editor-button {
-
     all: unset;
-    padding: 0.25em 0.5em;
+    padding: 0.5em 0.5em;
     margin-top: 3em;
     border-radius: 5px;
     color: white;
-    background-color: grey;
+    background-color: var(--clr-slate800)
 }
 
 .close-editor-button:hover {
     cursor: pointer;
-    background-color: rgb(92, 92, 92);
+    background-color: var(--clr-slate600)
 }
-
 
 .open-modal-button {
     all: unset;
@@ -88,34 +60,27 @@
     display: flex;
     align-items: center;
     width: 70%;
-    /* border: 1px solid red; */
 }
 
 .render-details-header {
-    font-size: 1.35em;
-    margin: 1em 0.5em 1em 0em;
-    /* border: 1px solid red; */
-
+    font-size: var(--size-xl);
+    margin: 1rem 0.5rem 1rem 0rem;
+    color: var(--clr-slate400);
 }
 
 .edit-workout-details {
-    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: -3em;
-    left: 24em;
-    max-height: 40em;
+    max-height: 40rem;
+    min-height: 20rem;
+    min-width: 500px;
     overflow-y: scroll;
     background-color: white;
     padding: 2em 5em;
     border: 2px solid black;
     border-radius: 20px;
-    box-sizing: content-box;
-}
-
-.edit-workout-details::-webkit-scrollbar {
-    color: #007bff;
+    box-sizing: border-box;
 }
 
 
@@ -135,9 +100,15 @@
   }
 
   .exercise-list-item {
-    border-bottom: 1px solid rgb(211, 211, 211);
-    max-width: 90%;
+    color: var(--clr-slate400);
   }
+
+  .exercise-list,
+  .sets-list {
+    list-style: none;
+  }
+
+
 
 
   @keyframes fadeInOut {

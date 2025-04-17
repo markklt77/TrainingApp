@@ -6,17 +6,65 @@ import SetCurrentConfirmation from "../SetCurrentConfirmation";
 import EditWorkoutDetails from "../EditWorkoutDetails";
 import './RenderWorkoutDetails.css';
 import DeleteModal from "../../DeleteModal";
-// import { useNavigate } from "react-router-dom";
 
 function RenderWorkoutDetails( { workoutId } ) {
+
+    //states for dragging edit box
+    const [modalPosition, setModalPosition] = useState({ x: 100, y: -100});
+    const [dragging, setDragging] = useState(false);
+    const [offset, setOffset] = useState({ x: 0, y: 0});
 
     const [loading, setLoading] = useState(true);
     const [fetchError, setFetchError] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
     const [showEditDetails, setShowEditDetails] = useState(false);
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
     const workout = useSelector((state) => state.workouts.workoutIds[workoutId])
+
+    //function for dragging edit box
+
+    const handleMouseDown = (e) => {
+
+        if (e.target.tagName === "SELECT" || e.target.closest("select") ||
+            e.target.tagName === "INPUT" || e.target. closest("input")) {
+            return;
+        }
+
+        e.preventDefault();
+        setDragging(true);
+        setOffset({
+            x: e.clientX - modalPosition.x,
+            y: e.clientY - modalPosition.y
+        });
+    }
+
+    const handleMouseMove = (e) => {
+        if (dragging) {
+            setModalPosition({
+                x: e.clientX - offset.x,
+                y: e.clientY - offset.y,
+            });
+        }
+    };
+
+    const handleMouseUp = () => {
+        setDragging(false);
+    };
+
+    useEffect(() => {
+        if (dragging) {
+            window.addEventListener("mousemove", handleMouseMove);
+            window.addEventListener("mouseup", handleMouseUp);
+        } else {
+            window.removeEventListener("mousemove", handleMouseMove);
+            window.removeEventListener("mouseup", handleMouseUp);
+        }
+
+        return () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+            window.removeEventListener("mouseup", handleMouseUp);
+        };
+    }, [dragging]);
 
 
     useEffect(() => {
@@ -51,9 +99,6 @@ function RenderWorkoutDetails( { workoutId } ) {
         }
     };
 
-    // const navigateCurrent = async () => {
-    //     navigate('workouts/current');
-    // }
 
     const toggleEditDetails = () => {
         setShowEditDetails((prevState) => !prevState);
@@ -83,25 +128,30 @@ function RenderWorkoutDetails( { workoutId } ) {
             <div className="render-details-header-div">
                 <h3 className="render-details-header">Workout Details</h3>
                 <div className="editor-set-current-buttons">
-                    <div
-                        className="open-modal-button-div"
+                    <button
+                        className="btn pencil"
                         onClick={toggleEditDetails}
                         style={{ cursor: 'pointer' }}
                     >
-                        <span className="edit-pencil">
-                            <i className="fas fa-pencil-alt"></i>
-                        </span>
-                    </div>
-                    <div className="open-modal-button-div">
-                        <OpenModalButton modalComponent={<SetCurrentConfirmation action={workoutActions.setWorkoutasCurrent} entityId={workoutId} finish={true}/>} buttonText={<i className="fas fa-running"></i>} cName={'set-current-button'}></OpenModalButton>
-                    </div>
-                    {/* <button className="set-current-button" onClick={handleSetCurrent}><span><i class="fas fa-running"></i></span></button> */}
+                    <i className="fas fa-pencil-alt"></i>
+                    </button>
+                    <OpenModalButton modalComponent={<SetCurrentConfirmation action={workoutActions.setWorkoutasCurrent} entityId={workoutId} finish={true}/>} buttonText={<i className="fas fa-running"></i>} cName={'set-current-button btn'}></OpenModalButton>
                 </div>
 
 
 
                     {showEditDetails && (
-                        <div className="edit-workout-details">
+                        <div
+                            className="edit-workout-details"
+                            onMouseDown={handleMouseDown}
+                            style={{
+                                position: "absolute",
+                                top: `${modalPosition.y}px`,
+                                left: `${modalPosition.x}px`,
+                                zIndex: 9999,
+                            }}
+
+                        >
                             <EditWorkoutDetails workoutId={workoutId} isModal={true} />
                             <button className='close-editor-button' onClick={toggleEditDetails}>Close Editor</button>
                         </div>
@@ -110,31 +160,31 @@ function RenderWorkoutDetails( { workoutId } ) {
 
 
             <p>
-                <strong>Focus:</strong> {workout.WorkoutType?.focus}
+                <strong>Type:</strong> <span className="information-text">{workout.WorkoutType?.focus}</span>
             </p>
             <p>
                 <strong>Date:</strong>{" "}
+                <span className="information-text">
                 {workout.createdAt
                     ? new Date(workout.createdAt).toLocaleDateString()
                     : "N/A"}
+                </span>
             </p>
 
-            <h4>Exercises</h4>
+            <h4 className="exercise-header">Exercises</h4>
             {workout.Exercises && workout.Exercises.length > 0 ? (
-                <ul>
+                <ul className="exercise-list">
                     {workout.Exercises.map((exercise) => (
                         <li className='exercise-list-item' key={exercise.id}>
                             <p>
-                                <strong>Exercise:</strong>{" "}
-                                {exercise.ExerciseType ? (
+                                <p className="exercise-type">{exercise.ExerciseType ? (
                                     exercise.ExerciseType.name
                                 ) : (
                                     <span>Loading Exercise Name...</span>
-                                )}
+                                )}</p>
                             </p>
-                            <h4>Sets</h4>
                             {exercise.ExerciseSets && exercise.ExerciseSets.length > 0 ? (
-                                <ul>
+                                <ul className="sets-list">
                                     {exercise.ExerciseSets.map((set, index) => (
                                         <li key={set.id || index}>
                                             <p>
@@ -147,17 +197,17 @@ function RenderWorkoutDetails( { workoutId } ) {
                                     ))}
                                 </ul>
                             ) : (
-                                <p>No sets added for this exercise yet.</p>
+                                <p className="information-text">No sets added for this exercise yet.</p>
                             )}
                         </li>
                     ))}
                 </ul>
             ) : (
-                <p>No exercises found for this workout.</p>
+                <ul className="exercise-list">
+                    <li className="information-text">No exercises found for this workout</li>
+                </ul>
             )}
-            <div>
-                <OpenModalButton modalComponent={<DeleteModal entityType={'Workout'} deleteAction={handleDelete}/>} buttonText={<i className="fas fa-trash"></i>} cName={'delete-icon'}/>
-            </div>
+            <OpenModalButton modalComponent={<DeleteModal entityType={'Workout'} deleteAction={handleDelete}/>} buttonText={<i className="fas fa-trash"></i>} cName={'delete-icon btn'}/>
         </div>
     );
 }

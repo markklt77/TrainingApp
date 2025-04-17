@@ -97,21 +97,16 @@ function ViewWorkoutPage() {
 
 
     return (
-        <div className="view-workout-page-holder">
-        <div className="view-workout-page">
-            <div className="create-workout-link-div">
-                <Link to="/home" className="back-button">Back to Dashboard</Link>
-            </div>
-
-            <h1>Workout Viewer</h1>
+        <div className="view-workout-page section">
+            <h1 className="view-header">Workout Viewer</h1>
 
             <div className="button-group">
-                <button className='search-button' onClick={() => handleViewToggle("mostRecent")}>Most Recent </button>
-                <button className='search-button' onClick={() => handleViewToggle("allWorkouts")}>Show All </button>
+                <button className='btn' onClick={() => handleViewToggle("mostRecent")}>Most Recent </button>
+                <button className='btn' onClick={() => handleViewToggle("allWorkouts")}>Show All </button>
             </div>
 
             <div className="search-container">
-                <img src="https://cdn2.iconfinder.com/data/icons/clean-simple/75/search-512.png" alt="Search" className="search-icon" />
+                <i className="fas fa-search search-icon"></i>
                 <input
                     type="text"
                     placeholder="Search by focus (e.g., arms, legs etc)"
@@ -122,18 +117,18 @@ function ViewWorkoutPage() {
 
             {!focus && !searchLocked && viewMode === 'mostRecent' && (
                 <div className="render-details-holder-div">
-                    <h2>Most Recent Workout</h2>
+                    <h2 className="view-sub-header">Most Recent Workout</h2>
                     {mostRecentWorkout && mostRecentWorkout.length > 0 ? (
                         <RenderWorkoutDetails workoutId={mostRecentWorkout[0]?.id} />
                     ) : (
-                        <p>No workouts found.</p>
+                        <p className="viewer-p-text">No workouts found.</p>
                     )}
                 </div>
             )}
 
             {!focus && !searchLocked && viewMode === 'allWorkouts' && (
                 <div>
-                    <h2>All Workouts</h2>
+                    <h2 className="view-sub-header">All Workouts</h2>
                     {workouts && workouts.length > 0 ? (
                         <div>
                             <div className="workout-list">
@@ -143,7 +138,7 @@ function ViewWorkoutPage() {
                                             <RenderWorkoutDetails workoutId={workout.id} />
                                         </div>
                                     ) : (
-                                        <p key={workout.id}>Invalid workout data</p>
+                                        <p key={workout.id} className="viewer-p-text">Invalid workout data</p>
                                     )
                                 ))}
                             </div>
@@ -165,18 +160,18 @@ function ViewWorkoutPage() {
                             </div>
                         </div>
                     ) : (
-                        <p>No workouts found.</p>
+                        <p className="viewer-p-text">No workouts found.</p>
                     )}
                 </div>
             )}
 
             {focus && (
                 <div>
-                    <h2>{searchLocked ? 'Search Results' : 'Live Search Results'}</h2>
+                    <h2 className="view-sub-header">{searchLocked ? 'Search Results' : 'Live Search Results'}</h2>
                     {searchError ? (
-                        <p>No workouts found for &quot;{focus}&quot;.</p>
+                        <p className="viewer-p-text">No workouts found for &quot;{focus}&quot;.</p>
                     ) : filteredWorkouts.length === 0 ? (
-                        <p>No workouts found for &quot;{focus}&quot;.</p>
+                        <p className="viewer-p-text">No workouts found for &quot;{focus}&quot;.</p>
                     ) : (
                         <div>
                             <div className="workout-list">
@@ -186,7 +181,7 @@ function ViewWorkoutPage() {
                                             <RenderWorkoutDetails workoutId={workout.id} />
                                         </div>
                                     ) : (
-                                        <p key={workout.id}>Invalid workout data</p>
+                                        <p key={workout.id} className="viewer-p-text">Invalid workout data</p>
                                     )
                                 ))}
                             </div>
@@ -210,7 +205,6 @@ function ViewWorkoutPage() {
                     )}
                 </div>
             )}
-        </div>
         </div>
     );
 

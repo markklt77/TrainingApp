@@ -26,26 +26,26 @@ function CreateNewTypeForm({ thunk, type, onSuccess, onCancel }) {
         <>
          <form className="create-new-type-form" onSubmit={handleSubmit(onSubmit)}>
                 <div className="type-form-input-div">
-                    <label className="type-form-label" htmlFor="inputField">
+                    {/* <label className="type-form-label" htmlFor="inputField">
                         {type === "workout" ? "New Workout Focus:" : "New Exercise Name:"}
-                    </label>
+                    </label> */}
                     <input
                         id="inputField"
                         {...register(type === "workout" ? "focus" : "name", {
-                            required: `${type === "workout" ? "Workout focus" : "Exercise name"} is required`,
+                            required: `${type === "workout" ? "Workout type" : "Exercise name"} is required`,
                         })}
-                        placeholder={`Enter ${type === "workout" ? "Workout Focus" : "Exercise Name"}`}
+                        placeholder={`Enter new ${type === "workout" ? "Workout Type" : "Exercise Name"}`}
                     />
                 </div>
                 {errors[type === "workout" ? "focus" : "name"] && (
                     <p className="landing-page-error">{errors[type === "workout" ? "focus" : "name"].message}</p>
                 )}
                 <div className="form-buttons">
-                    <button className='editor-button' disabled={isSubmitting} type="submit">
+                    <button className='workout-form-button btn' disabled={isSubmitting} type="submit">
                         {isSubmitting ? `Adding ${type}...` : `Add new ${type}`}
                     </button>
                     {onCancel && (
-                        <button className='editor-button'  type="button" onClick={onCancel}>
+                        <button className='workout-form-button btn'  type="button" onClick={onCancel}>
                             Cancel
                         </button>
                     )}

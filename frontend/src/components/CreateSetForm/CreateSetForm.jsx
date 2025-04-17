@@ -61,7 +61,7 @@ function CreateSetForm( { workoutId, exerciseId, onCloseForm }) {
                 { errors.weight && <p className="landing-page-error">{ errors.weight.message }</p>}
             </div>
             {errors.root && <p className="landing-page-error">{errors.root.message}</p>}
-            <button className='editor-button' type="submit" disabled={isSubmitting}>
+            <button className='btn' type="submit" disabled={isSubmitting}>
                 {isSubmitting ? "Adding Set..." : "Add Set"}
             </button>
         </form>

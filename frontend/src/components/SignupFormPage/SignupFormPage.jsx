@@ -8,11 +8,17 @@ import { useNavigate } from 'react-router-dom';
 function SignupFormPage() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  const togglePasswordVisible = () => {
+    setPasswordVisible(!passwordVisible);
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,14 +46,8 @@ function SignupFormPage() {
 
   return (
     <div>
-    <div className='landing-page-header'>
-        <div className='fit-log-image-div'>
-            <img src="/fitlog_icon.png" alt="icon" className='fit-log-image'/>
-        </div>
-        <h2 className="name-header">FitLog</h2>
-    </div>
-      {/* <h1>Sign Up</h1> */}
       <form onSubmit={handleSubmit} className="landing-form">
+      <h2 className="name-header">Sign Up</h2>
         <div className='input-container'>
             <input
                 className='landing-page-input'
@@ -59,7 +59,7 @@ function SignupFormPage() {
             <label className='landing-page-label'>
                 Email
             </label>
-            <span className='envelope'><i className="fa fa-envelope"></i></span>
+
         </div>
         {errors.email && <p className='landing-page-error'>{errors.email}</p>}
         <div className='input-container'>
@@ -73,14 +73,13 @@ function SignupFormPage() {
             <label className='landing-page-label'>
                 Username
             </label>
-            <span className='person'><i className="fa fa-user"></i></span>
 
         </div>
         {errors.username && <p className='landing-page-error'>{errors.username}</p>}
         <div className='input-container'>
             <input
                 className='landing-page-input'
-                type="password"
+                type= {passwordVisible? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -88,13 +87,23 @@ function SignupFormPage() {
             <label className='landing-page-label'>
                 Password
             </label>
-            <span className='key'><i className="fa fa-key"></i></span>
+            {passwordVisible? (
+                <button className='password-toggle-btn' onClick={(e) => {
+                    e.preventDefault();
+                    togglePasswordVisible();}}>
+                <span className='key'><i class="fas fa-eye"></i></span></button>
+            ) : (
+                <button className='password-toggle-btn' onClick={(e) => {
+                    e.preventDefault();
+                    togglePasswordVisible();}}>
+                <span className='key'><i class="fas fa-eye-slash"></i></span></button>
+            )}
         </div>
         {errors.password && <p className='landing-page-error'>{errors.password}</p>}
         <div className='input-container'>
             <input
                 className='landing-page-input'
-                type="password"
+                type={passwordVisible? 'text' : 'password'}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -102,12 +111,22 @@ function SignupFormPage() {
             <label className='landing-page-label'>
                 Confirm Password
             </label>
-            <span className='key'><i className="fa fa-key"></i></span>
+            {passwordVisible? (
+                <button className='password-toggle-btn' onClick={(e) => {
+                    e.preventDefault();
+                    togglePasswordVisible();}}>
+                <span className='key'><i class="fas fa-eye"></i></span></button>
+            ) : (
+                <button className='password-toggle-btn' onClick={(e) => {
+                    e.preventDefault();
+                    togglePasswordVisible();}}>
+                <span className='key'><i class="fas fa-eye-slash"></i></span></button>
+            )}
         </div>
         {errors.confirmPassword && (
             <p className='landing-page-error'>{errors.confirmPassword}</p>
             )}
-        <button className='log-in-button' type="submit">Sign Up</button>
+        <button className='btn log-in-btn' type="submit">Sign Up</button>
       </form>
     </div>
   );

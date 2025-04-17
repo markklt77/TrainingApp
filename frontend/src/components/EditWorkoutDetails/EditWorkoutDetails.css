@@ -3,15 +3,19 @@
     margin-left: 1em;
 }
 
+.information-text-editor {
+    font-size: var(--size-base);
+    color: var(--clr-dark);
+    text-align: center;
+}
+
 .previous-stats {
     border-left: 1px solid rgb(88, 88, 88);
     padding-left: 5em;
-    /* width: 18em; */
 }
 
 .edit-details-link-div {
-    /* border: 1px solid red; */
-    margin-bottom: 2em;
+    margin-bottom: 2rem;
     width: 100%;
 }
 
@@ -27,19 +31,22 @@
     margin: 1em 0em;
 
 }
+
 .current-and-previous-details-div {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8em;
     width: 100%;
-    /* border: 1px solid red; */
+
 }
+
+/* .current-workout-delete-workout-button-div {
+    border: 1px solid red;
+} */
 
 .set-trash-button {
     color: rgb(71, 71, 71);
     background-color: white;
-    /* border: 1px solid grey;
-    border-radius: 5px; */
     cursor: pointer;
     transition: background-color 0.3s ease;
 
@@ -47,38 +54,33 @@
 
 
 .set-trash-button:hover {
-    color: rgb(255, 0, 0)
+    color: var(--clr-rose);
 }
 .exercise-header-div {
     display: flex;
 }
 .exercise-name-div {
-    margin-left: 0.5em;
+    margin-left: 0.5rem;
     display: flex;
     justify-content: space-between;
-    width: 15em;
-    /* border: 1px solid red; */
+    width: 15rem;
+}
+
+.exercise-form-div {
+    margin-top: 2rem;
 }
 
 .edit-pencil-editor {
     all: unset;
-    width: 1.5em;
-    height: 1.5em;
-    font-size: 0.9em;
+    margin-left: 1rem;
+    font-size: var(--size-sm);
     color: rgb(49, 49, 49);
     border-radius: 5px;
     text-align: center;
-    /* background-color: #007bff;; */
 }
 
 .editor-button-delete {
-
-    all: unset;
-    padding: 0.25em 0.5em;
-    border-radius: 5px;
-    color: white;
-    background-color: red;
-    margin-right: 1em;
+    margin-right: 1rem;
 }
 
 .exercise-list-item-li {
@@ -87,15 +89,10 @@
     border-bottom: 1px solid rgb(226, 226, 226);
 }
 
-.editor-button-delete:hover {
-    cursor: pointer;
-    background-color: rgb(218, 0, 0)
-}
-
 
 .edit-pencil-editor:hover {
     cursor: pointer;
-    color:  #007bff;
+    color:  var(--clr-indigo);
 }
 
 @media (max-width: 700px) {

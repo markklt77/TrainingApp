@@ -1,36 +1,13 @@
 .decline {
-
-    all: unset;
-    text-align: center;
-    width: 1.5em;
-    font-size: 1.25em;
-    padding: 0.25em 0.5em;
-    border-radius: 5px;
-    color: white;
-    background-color: #007bff;
+    font-size: var(--size-base);
+    width: 4rem;
 }
-
-.decline:hover {
-    cursor: pointer;
-    background-color: #0056b3;
-}
-
 
 .confirm {
-    all: unset;
-    text-align: center;
-    width: 1.5em;
-    font-size: 1.25em;
-    padding: 0.25em 0.5em;
-    border-radius: 5px;
-    color: white;
-    background-color: #007bff;
+    font-size: var(--size-base);
+    width: 4rem;
 }
 
-.confirm:hover {
-    cursor: pointer;
-    background-color: #0056b3;
-}
 
 .modal-statement {
     text-align: center;

@@ -22,8 +22,8 @@ function SetCurrentConfirmation ({entityId, finish, action}) {
             <p className='modal-statement'>Set this workout as Current?</p>
              : <p className='modal-statement'>Finish Workout?</p>}
              <div className="modal-confirm-button-div">
-                <button onClick={handleConfirm} className="confirm">Yes</button>
-                <button onClick={closeModal} className="decline">No</button>
+                <button onClick={handleConfirm} className="confirm btn">Yes</button>
+                <button onClick={closeModal} className="decline btn">No</button>
              </div>
 
         </div>
